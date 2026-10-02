@@ -1,86 +1,153 @@
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
+local MarketplaceService = game:GetService("MarketplaceService")
 
 local player = Players.LocalPlayer or Players.PlayerAdded:Wait()
-local placeId = game.PlaceId
+local currentPlaceId = game.PlaceId
 
-local REGISTRY = "https://raw.githubusercontent.com/DXPanel/Mega/refs/heads/main/games.json"
+local REGISTRY_URL =
+    "https://raw.githubusercontent.com/DXPanel/Mega/refs/heads/main/games.json"
 
-local function notify(text)
+local function notify(text, duration)
     pcall(function()
         StarterGui:SetCore("SendNotification", {
-            Title = "Loot to Forge",
+            Title = "DXPanel",
             Text = text,
-            Duration = 5
+            Duration = duration or 5
         })
     end)
 end
 
-local function loadGame(url, name)
-    notify("กำลังโหลด " .. tostring(name) .. "...")
+local function getGameName()
+    local name = "Unknown Game"
+
+    pcall(function()
+        name = MarketplaceService:GetProductInfo(currentPlaceId).Name
+    end)
+
+    return name
+end
+
+local function loadScript(url, gameName)
+    notify("กำลังโหลด " .. tostring(gameName) .. "...", 4)
 
     local ok, source = pcall(function()
-        return game:HttpGet(url .. "?t=" .. os.time())
+        return game:HttpGet(
+            url .. "?t=" .. tostring(os.time())
+        )
     end)
 
     if not ok or not source or source == "" then
-        notify("โหลดสคริปต์ไม่สำเร็จ")
-        return
+        notify("โหลดสคริปต์ไม่สำเร็จ", 6)
+        warn("[DXPanel] HTTP Error:", source)
+        return false
     end
 
     local fn, err = loadstring(source)
 
     if not fn then
-        notify("Compile Error")
-        warn("[Loot to Forge] " .. tostring(err))
-        return
+        notify("Script Compile Error", 7)
+        warn("[DXPanel] Compile Error:", err)
+        return false
     end
 
-    local success, runtimeErr = pcall(fn)
+    local success, runtimeError = pcall(fn)
 
     if not success then
-        notify("Runtime Error")
-        warn("[Loot to Forge] " .. tostring(runtimeErr))
-        return
+        notify("Script Runtime Error", 7)
+        warn("[DXPanel] Runtime Error:", runtimeError)
+        return false
     end
 
-    notify("โหลดสำเร็จ")
+    notify(tostring(gameName) .. " โหลดสำเร็จ", 4)
+    return true
 end
 
+-- โหลด games.json
 local ok, json = pcall(function()
-    return game:HttpGet(REGISTRY .. "?t=" .. os.time())
+    return game:HttpGet(
+        REGISTRY_URL .. "?t=" .. tostring(os.time())
+    )
 end)
 
 if not ok or not json or json == "" then
-    notify("โหลด games.json ไม่สำเร็จ")
+    notify("โหลด games.json ไม่สำเร็จ", 7)
     return
 end
 
-local success, games = pcall(function()
+-- อ่าน JSON
+local decoded, games = pcall(function()
     return HttpService:JSONDecode(json)
 end)
 
-if not success or type(games) ~= "table" then
-    notify("games.json ไม่ถูกต้อง")
+if not decoded or type(games) ~= "table" then
+    notify("games.json ไม่ถูกต้อง", 7)
     return
 end
 
+-- ตรวจหาเกมจาก PlaceId
+local matchedGame = nil
+
 for _, gameInfo in ipairs(games) do
-    if type(gameInfo) == "table" and type(gameInfo.placeIds) == "table" then
+    if type(gameInfo) == "table"
+    and type(gameInfo.placeIds) == "table" then
+
         for _, id in ipairs(gameInfo.placeIds) do
-            if tonumber(id) == tonumber(placeId) then
-
-                if gameInfo.status ~= "active" then
-                    notify("Loot to Forge กำลังปิดปรับปรุง")
-                    return
-                end
-
-                loadGame(gameInfo.scriptUrl, gameInfo.name)
-                return
+            if tonumber(id) == tonumber(currentPlaceId) then
+                matchedGame = gameInfo
+                break
             end
         end
     end
+
+    if matchedGame then
+        break
+    end
 end
 
-notify("ไม่พบ Loot to Forge ใน games.json")
+-- พบเกม
+if matchedGame then
+
+    local gameName =
+        matchedGame.name or getGameName()
+
+    if matchedGame.status ~= "active" then
+        notify(
+            tostring(gameName) .. " กำลังปิดปรับปรุง",
+            7
+        )
+        return
+    end
+
+    if type(matchedGame.scriptUrl) ~= "string"
+    or matchedGame.scriptUrl == "" then
+
+        notify("ไม่พบ Script URL", 7)
+        return
+    end
+
+    loadScript(
+        matchedGame.scriptUrl,
+        gameName
+    )
+
+else
+
+    -- ไม่พบเกม
+    local gameName = getGameName()
+
+    notify(
+        "เกมนี้ยังไม่รองรับ\n"
+        .. tostring(gameName)
+        .. "\nPlaceId: "
+        .. tostring(currentPlaceId),
+        8
+    )
+
+    warn(
+        "[DXPanel] Unsupported Game:",
+        gameName,
+        currentPlaceId
+    )
+end
