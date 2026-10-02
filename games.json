@@ -5,7 +5,7 @@
     "placeIds": [118805555015549],
     "scriptUrl": "https://raw.githubusercontent.com/DXPanel/Mega/refs/heads/main/Gui.lua",
     "status": "active",
-    "version": "2.1",
-    "description": "ออโต้ฟาร์มพลัง, ตีด่านอัตโนมัติ, หลอมไอเทม, ขายหินตีบวกแยกเกรด"
+    "version": "1",
+    "description": "Auto Train, Auto Stage, Auto dungeon, Auto Forge"
   }
 ]
