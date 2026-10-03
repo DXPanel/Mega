@@ -1,33 +1,33 @@
 local DX_TAB_ICONS = {
-    ["Overview"] = "rbxassetid://18979524646",
-    ["Setting"] = "rbxassetid://138572498196410",
-    ["Settings"] = "rbxassetid://138572498196410",
-    ["Farm"] = "rbxassetid://18777407436",
-    ["Dungeon"] = "rbxassetid://16615793832",
-    ["Info"] = "rbxassetid://71870986260398",
-    ["Forge"] = "rbxassetid://9394791231",
+    ["\079\118\101\114\118\105\101\119"] = "\114\098\120\097\115\115\101\116\105\100\058\047\047\049\056\057\055\057\053\050\052\054\052\054",
+    ["\083\101\116\116\105\110\103"] = "\114\098\120\097\115\115\101\116\105\100\058\047\047\049\051\056\053\055\050\052\057\056\049\057\054\052\049\048",
+    ["\083\101\116\116\105\110\103\115"] = "\114\098\120\097\115\115\101\116\105\100\058\047\047\049\051\056\053\055\050\052\057\056\049\057\054\052\049\048",
+    ["\070\097\114\109"] = "\114\098\120\097\115\115\101\116\105\100\058\047\047\049\056\055\055\055\052\048\055\052\051\054",
+    ["\068\117\110\103\101\111\110"] = "\114\098\120\097\115\115\101\116\105\100\058\047\047\049\054\054\049\053\055\057\051\056\051\050",
+    ["\073\110\102\111"] = "\114\098\120\097\115\115\101\116\105\100\058\047\047\055\049\056\055\048\057\056\054\050\054\048\051\057\056",
+    ["\070\111\114\103\101"] = "\114\098\120\097\115\115\101\116\105\100\058\047\047\057\051\057\052\055\057\049\050\051\049",
 }
 
 --[[
 	LUNAR_Hub.lua  -  LUNAR Hub (Neon UI)
 	แท็บ: Overview / Example (แท็บตัวอย่าง) / Settings
-	เพิ่มแท็บใหม่: คัดลอกบล็อก "EXAMPLE" ในส่วน PAGES แล้วแก้ชื่อกับคอมโพเนนต์
+	เพิ่มแท็บใหม่: คัดลอกบล็อก "\069\088\065\077\080\076\069" ในส่วน PAGES แล้วแก้ชื่อกับคอมโพเนนต์
 	คอมโพเนนต์: Section / Button / Toggle / Slider / Dropdown (เลือกเดียว/หลายอัน)
 
 	รับ context จาก Loader (ไม่บังคับ): { PlaceId, GameName, Hooks = { ... } }
 	Hooks ที่ใช้ตอนนี้: Hooks.AutoLoad(enabled)  (เพิ่ม Hook อื่นเองได้ด้วย callHook / hookAvailable)
 ]]
 
-local Players = game:GetService("Players")
-local UIS = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-local TweenService = game:GetService("TweenService")
-local HttpService = game:GetService("HttpService")
-local MarketplaceService = game:GetService("MarketplaceService")
-local Stats = game:GetService("Stats")
+local Players = game:GetService("\080\108\097\121\101\114\115")
+local UIS = game:GetService("\085\115\101\114\073\110\112\117\116\083\101\114\118\105\099\101")
+local RunService = game:GetService("\082\117\110\083\101\114\118\105\099\101")
+local TweenService = game:GetService("\084\119\101\101\110\083\101\114\118\105\099\101")
+local HttpService = game:GetService("\072\116\116\112\083\101\114\118\105\099\101")
+local MarketplaceService = game:GetService("\077\097\114\107\101\116\112\108\097\099\101\083\101\114\118\105\099\101")
+local Stats = game:GetService("\083\116\097\116\115")
 
 -- Re-execution protection
-for _, key in ipairs({ "LunarHubCleanup", "DXPanelCleanup" }) do
+for _, key in ipairs({ "\076\117\110\097\114\072\117\098\067\108\101\097\110\117\112", "\068\088\080\097\110\101\108\067\108\101\097\110\117\112" }) do
 	if _G[key] then
 		pcall(_G[key])
 		_G[key] = nil
@@ -36,13 +36,13 @@ end
 
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
-	warn("[LUNAR Hub] LocalPlayer not available (must run on client)")
+	warn("\091\076\085\078\065\082\032\072\117\098\093\032\076\111\099\097\108\080\108\097\121\101\114\032\110\111\116\032\097\118\097\105\108\097\098\108\101\032\040\109\117\115\116\032\114\117\110\032\111\110\032\099\108\105\101\110\116\041")
 	return
 end
 
 local args = { ... }
-local Context = type(args[1]) == "table" and args[1] or {}
-local Hooks = type(Context.Hooks) == "table" and Context.Hooks or {}
+local Context = type(args[1]) == "\116\097\098\108\101" and args[1] or {}
+local Hooks = type(Context.Hooks) == "\116\097\098\108\101" and Context.Hooks or {}
 
 --============================================================
 -- SETTINGS (บันทึกลงไฟล์ถ้า executor รองรับ writefile)
@@ -57,24 +57,24 @@ local DEFAULT_SETTINGS = {
 	Rainbow = false,
 	RainbowSpeed = 1,
 	Multi = true,
-	NeonColors = { "9B5CFF", "3DA5FF", "FF5CC8" },
-	ThemeColor = "9B5CFF",
+	NeonColors = { "\057\066\053\067\070\070", "\051\068\065\053\070\070", "\070\070\053\067\067\056" },
+	ThemeColor = "\057\066\053\067\070\070",
 }
-local SETTINGS_FILE = "LunarHub_Settings.json"
+local SETTINGS_FILE = "\076\117\110\097\114\072\117\098\095\083\101\116\116\105\110\103\115\046\106\115\111\110"
 
 local function copyTable(t)
 	local c = {}
 	for k, v in pairs(t) do
-		c[k] = type(v) == "table" and copyTable(v) or v
+		c[k] = type(v) == "\116\097\098\108\101" and copyTable(v) or v
 	end
 	return c
 end
 
 local function HexToColor3(hex)
-	if type(hex) ~= "string" then
+	if type(hex) ~= "\115\116\114\105\110\103" then
 		return nil
 	end
-	hex = hex:gsub("[#%s]", "")
+	hex = hex:gsub("\091\035\037\115\093", "")
 	if #hex ~= 6 then
 		return nil
 	end
@@ -89,7 +89,7 @@ end
 
 local function Color3ToHex(c)
 	return string.format(
-		"%02X%02X%02X",
+		"\037\048\050\088\037\048\050\088\037\048\050\088",
 		math.floor(c.R * 255 + 0.5),
 		math.floor(c.G * 255 + 0.5),
 		math.floor(c.B * 255 + 0.5)
@@ -97,7 +97,7 @@ local function Color3ToHex(c)
 end
 
 local Settings = copyTable(DEFAULT_SETTINGS)
-local hasFileApi = type(isfile) == "function" and type(readfile) == "function" and type(writefile) == "function"
+local hasFileApi = type(isfile) == "\102\117\110\099\116\105\111\110" and type(readfile) == "\102\117\110\099\116\105\111\110" and type(writefile) == "\102\117\110\099\116\105\111\110"
 
 local function saveSettings()
 	if not hasFileApi then
@@ -115,15 +115,15 @@ do
 				return
 			end
 			local data = HttpService:JSONDecode(readfile(SETTINGS_FILE))
-			if type(data) ~= "table" then
+			if type(data) ~= "\116\097\098\108\101" then
 				return
 			end
-			for _, key in ipairs({ "Animate", "Pulse", "ShowFloating", "AutoLoad", "Stars", "Rainbow", "Multi" }) do
-				if type(data[key]) == "boolean" then
+			for _, key in ipairs({ "\065\110\105\109\097\116\101", "\080\117\108\115\101", "\083\104\111\119\070\108\111\097\116\105\110\103", "\065\117\116\111\076\111\097\100", "\083\116\097\114\115", "\082\097\105\110\098\111\119", "\077\117\108\116\105" }) do
+				if type(data[key]) == "\098\111\111\108\101\097\110" then
 					Settings[key] = data[key]
 				end
 			end
-			if type(data.NeonColors) == "table" then
+			if type(data.NeonColors) == "\116\097\098\108\101" then
 				local list = {}
 				for _, h in ipairs(data.NeonColors) do
 					if HexToColor3(h) and #list < 5 then
@@ -134,7 +134,7 @@ do
 					Settings.NeonColors = list
 				end
 			end
-			if type(data.RainbowSpeed) == "number" then
+			if type(data.RainbowSpeed) == "\110\117\109\098\101\114" then
 				Settings.RainbowSpeed = math.clamp(data.RainbowSpeed, 0.2, 3)
 			end
 			if HexToColor3(data.ThemeColor) then
@@ -194,7 +194,7 @@ local function BuildNeonSequence(c)
 		return ColorSequence.new(pts)
 	end
 	-- หลายสีพร้อมกัน: ไล่สีวนครบรอบตามพาเลตที่เลือก
-	if Settings.Multi and type(Settings.NeonColors) == "table" and #Settings.NeonColors >= 2 then
+	if Settings.Multi and type(Settings.NeonColors) == "\116\097\098\108\101" and #Settings.NeonColors >= 2 then
 		local list, n, pts = Settings.NeonColors, #Settings.NeonColors, {}
 		for i = 1, n do
 			table.insert(pts, ColorSequenceKeypoint.new((i - 1) / n, HexToColor3(list[i]) or c))
@@ -313,11 +313,11 @@ local function New(class, props, parent)
 end
 
 local function Corner(obj, radius)
-	return New("UICorner", { CornerRadius = UDim.new(0, radius) }, obj)
+	return New("\085\073\067\111\114\110\101\114", { CornerRadius = UDim.new(0, radius) }, obj)
 end
 
 local function Stroke(obj, color, thickness, transparency)
-	return New("UIStroke", {
+	return New("\085\073\083\116\114\111\107\101", {
 		Color = color,
 		Thickness = thickness or 1,
 		Transparency = transparency or 0,
@@ -326,7 +326,7 @@ local function Stroke(obj, color, thickness, transparency)
 end
 
 local function Gradient(obj, colorSeq, rotation)
-	return New("UIGradient", { Color = colorSeq, Rotation = rotation or 0 }, obj)
+	return New("\085\073\071\114\097\100\105\101\110\116", { Color = colorSeq, Rotation = rotation or 0 }, obj)
 end
 
 local function Tween(obj, time, props, style, direction)
@@ -355,10 +355,10 @@ local function Txt(parent, props)
 	for k, v in pairs(props) do
 		base[k] = v
 	end
-	return New("TextLabel", base, parent)
+	return New("\084\101\120\116\076\097\098\101\108", base, parent)
 end
 
-local orderCounters = setmetatable({}, { __mode = "k" })
+local orderCounters = setmetatable({}, { __mode = "\107" })
 local function ord(parent)
 	orderCounters[parent] = (orderCounters[parent] or 0) + 1
 	return orderCounters[parent]
@@ -368,15 +368,15 @@ end
 local function NeonLayers(parent, radius, specs)
 	local list = {}
 	for i, s in ipairs(specs) do
-		local f = New("Frame", {
-			Name = "NeonLayer" .. i,
+		local f = New("\070\114\097\109\101", {
+			Name = "\078\101\111\110\076\097\121\101\114" .. i,
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			ZIndex = i,
 		}, parent)
 		Corner(f, radius)
-		local st = New("UIStroke", {
+		local st = New("\085\073\083\116\114\111\107\101", {
 			Color = Color3.new(1, 1, 1),
 			Thickness = s[1],
 			Transparency = s[2],
@@ -438,7 +438,7 @@ do
 	function Interaction.WatchScroll(sf)
 		scrollers[sf] = true
 		local token = 0
-		track(sf:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
+		track(sf:GetPropertyChangedSignal("\067\097\110\118\097\115\080\111\115\105\116\105\111\110"):Connect(function()
 			if active == nil then
 				Interaction.Begin(sf, sf)
 			end
@@ -460,12 +460,12 @@ end
 --============================================================
 
 do
-	local containers = { LocalPlayer:FindFirstChild("PlayerGui") }
+	local containers = { LocalPlayer:FindFirstChild("\080\108\097\121\101\114\071\117\105") }
 	pcall(function()
-		table.insert(containers, game:GetService("CoreGui"))
+		table.insert(containers, game:GetService("\067\111\114\101\071\117\105"))
 	end)
 	for _, c in ipairs(containers) do
-		for _, n in ipairs({ "LunarHubGui", "DXPanelGui", "DXPanel" }) do
+		for _, n in ipairs({ "\076\117\110\097\114\072\117\098\071\117\105", "\068\088\080\097\110\101\108\071\117\105", "\068\088\080\097\110\101\108" }) do
 			local old = c and c:FindFirstChild(n)
 			if old then
 				pcall(function()
@@ -476,8 +476,8 @@ do
 	end
 end
 
-Gui = New("ScreenGui", {
-	Name = "LunarHubGui",
+Gui = New("\083\099\114\101\101\110\071\117\105", {
+	Name = "\076\117\110\097\114\072\117\098\071\117\105",
 	ResetOnSpawn = false,
 	IgnoreGuiInset = true,
 	DisplayOrder = 999,
@@ -520,8 +520,8 @@ do
 	PanelPos = Vector2.new((Viewport().X - cw) / 2, (Viewport().Y - ch) / 2)
 end
 
-local Root = New("Frame", {
-	Name = "Root",
+local Root = New("\070\114\097\109\101", {
+	Name = "\082\111\111\116",
 	Position = UDim2.fromOffset(PanelPos.X, PanelPos.Y),
 	Size = UDim2.fromOffset(PanelSize.X, PanelSize.Y),
 	BackgroundTransparency = 1,
@@ -583,8 +583,8 @@ for _, l in ipairs(MainGlow) do
 	Spin(l.Grad, 5)
 end
 
-local Main = New("Frame", {
-	Name = "Main",
+local Main = New("\070\114\097\109\101", {
+	Name = "\077\097\105\110",
 	Size = UDim2.fromScale(1, 1),
 	BackgroundColor3 = COLOR.black,
 	BorderSizePixel = 0,
@@ -607,8 +607,8 @@ Spin(MainStrokeGrad, 5)
 -- SKY : พื้นหลังกาแล็กซี (เนบิวลา + ดาวระยิบ + ดาวตก)
 --============================================================
 
-local Sky = New("Frame", {
-	Name = "Sky",
+local Sky = New("\070\114\097\109\101", {
+	Name = "\083\107\121",
 	Size = UDim2.fromScale(1, 1),
 	BackgroundTransparency = 1,
 	ClipsDescendants = true,
@@ -623,7 +623,7 @@ local rng = Random.new()
 local NebulaLayers = {}
 local function Nebula(ax, ay, size, second)
 	for i, d in ipairs({ 1, 0.7, 0.42 }) do
-		local f = New("Frame", {
+		local f = New("\070\114\097\109\101", {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(ax, ay),
 			Size = UDim2.fromOffset(size * d, size * d),
@@ -643,7 +643,7 @@ local StarList = {}
 for i = 1, 36 do
 	local big = rng:NextInteger(1, 8) == 1
 	local sz = big and 3 or rng:NextInteger(1, 2)
-	local f = New("Frame", {
+	local f = New("\070\114\097\109\101", {
 		Position = UDim2.fromScale(rng:NextNumber(), rng:NextNumber()),
 		Size = UDim2.fromOffset(sz, sz),
 		BackgroundColor3 = Color3.new(1, 1, 1),
@@ -682,7 +682,7 @@ local function SpawnMeteor()
 	local ex, ey = sx - dist * 0.866, sy + dist * 0.5
 	local dur = rng:NextNumber(0.8, 1.4)
 
-	local m = New("Frame", {
+	local m = New("\070\114\097\109\101", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromOffset(sx, sy),
 		Size = UDim2.fromOffset(len, 2),
@@ -745,7 +745,7 @@ task.spawn(function()
 end)
 
 -- Toast (แจ้งผลสั้นๆ ด้านล่าง)
-local Toast = New("TextLabel", {
+local Toast = New("\084\101\120\116\076\097\098\101\108", {
 	AnchorPoint = Vector2.new(0.5, 1),
 	Position = UDim2.new(0.5, 0, 1, -16),
 	Size = UDim2.fromOffset(240, 30),
@@ -779,7 +779,7 @@ end
 -- SIDEBAR
 --============================================================
 
-local Sidebar = New("Frame", {
+local Sidebar = New("\070\114\097\109\101", {
 	Position = UDim2.new(0, 2, 0, 4),
 	Size = UDim2.new(0, 145, 1, -6),
 	BackgroundColor3 = COLOR.sidebar2,
@@ -792,7 +792,7 @@ Corner(Sidebar, 14)
 
 Gradient(Sidebar, ColorSequence.new(Color3.new(1, 1, 1), Color3.fromRGB(190, 190, 205)), 80)
 
-local SidebarLine = New("Frame", {
+local SidebarLine = New("\070\114\097\109\101", {
 	Position = UDim2.new(1, -1, 0, 0),
 	Size = UDim2.new(0, 1, 1, 0),
 	BackgroundColor3 = COLOR.border,
@@ -802,13 +802,13 @@ local SidebarLine = New("Frame", {
 }, Sidebar)
 
 -- โลโก้พระจันทร์ (วาดด้วย Frame)
-local Moon = New("Frame", {
+local Moon = New("\070\114\097\109\101", {
 	Position = UDim2.new(0, 14, 0, 13),
 	Size = UDim2.fromOffset(30, 30),
 	BackgroundTransparency = 1,
 	ZIndex = 20,
 }, Sidebar)
-local MoonDisc = New("Frame", {
+local MoonDisc = New("\070\114\097\109\101", {
 	AnchorPoint = Vector2.new(0.5, 0.5),
 	Position = UDim2.fromScale(0.5, 0.5),
 	Size = UDim2.fromOffset(24, 24),
@@ -820,7 +820,7 @@ Corner(MoonDisc, 12)
 Gradient(MoonDisc, ColorSequence.new(Color3.new(1, 1, 1), Color3.fromRGB(190, 184, 230)), 45)
 local MoonStroke = Stroke(MoonDisc, COLOR.neon, 3, 0.6)
 for _, c in ipairs({ { 14, 5, 6 }, { 5, 12, 8 }, { 15, 15, 4 } }) do
-	local crater = New("Frame", {
+	local crater = New("\070\114\097\109\101", {
 		Position = UDim2.fromOffset(c[1], c[2]),
 		Size = UDim2.fromOffset(c[3], c[3]),
 		BackgroundColor3 = Color3.fromRGB(196, 190, 228),
@@ -833,7 +833,7 @@ end
 local LogoTitle = Txt(Sidebar, {
 	Position = UDim2.new(0, 52, 0, 12),
 	Size = UDim2.new(1, -58, 0, 18),
-	Text = "LUNAR",
+	Text = "\076\085\078\065\082",
 	Font = Enum.Font.GothamBlack,
 	TextSize = 17,
 	ZIndex = 20,
@@ -842,13 +842,13 @@ local LogoTitle = Txt(Sidebar, {
 local PanelWord = Txt(Sidebar, {
 	Position = UDim2.new(0, 52, 0, 29),
 	Size = UDim2.new(1, -58, 0, 12),
-	Text = "H U B",
+	Text = "\072\032\085\032\066",
 	Font = Enum.Font.GothamBold,
 	TextSize = 9,
 	ZIndex = 20,
 })
 
-local LogoLine = New("Frame", {
+local LogoLine = New("\070\114\097\109\101", {
 	Visible = false,
 	Position = UDim2.new(0, 15, 0, 49),
 	Size = UDim2.fromOffset(35, 2),
@@ -865,7 +865,7 @@ local LogoGrad = Gradient(LogoLine, ColorSequence.new({
 local Online = Txt(Sidebar, {
 	Position = UDim2.new(0, 15, 0, 55),
 	Size = UDim2.new(1, -30, 0, 18),
-	Text = "●  ONLINE",
+	Text = "\226\151\143\032\032\079\078\076\073\078\069",
 	Font = Enum.Font.GothamMedium,
 	TextSize = 9,
 	TextColor3 = COLOR.good,
@@ -881,7 +881,7 @@ task.spawn(function()
 	end
 end)
 
-local TabHolder = New("ScrollingFrame", {
+local TabHolder = New("\083\099\114\111\108\108\105\110\103\070\114\097\109\101", {
 	Position = UDim2.new(0, 9, 0, 88),
 	Size = UDim2.new(1, -18, 1, -98),
 	BackgroundTransparency = 1,
@@ -893,14 +893,14 @@ local TabHolder = New("ScrollingFrame", {
 	ClipsDescendants = true,
 	ZIndex = 20,
 }, Sidebar)
-New("UIListLayout", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, TabHolder)
+New("\085\073\076\105\115\116\076\097\121\111\117\116", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, TabHolder)
 Interaction.WatchScroll(TabHolder)
 
 --============================================================
 -- CONTENT / HEADER
 --============================================================
 
-local Content = New("Frame", {
+local Content = New("\070\114\097\109\101", {
 	Position = UDim2.new(0, 145, 0, 4),
 	Size = UDim2.new(1, -145, 1, -6),
 	BackgroundTransparency = 1,
@@ -908,7 +908,7 @@ local Content = New("Frame", {
 	ZIndex = 11,
 }, Main)
 
-local Header = New("Frame", {
+local Header = New("\070\114\097\109\101", {
 	Position = UDim2.new(0, 15, 0, 9),
 	Size = UDim2.new(1, -30, 0, 38),
 	BackgroundTransparency = 1,
@@ -918,7 +918,7 @@ local Header = New("Frame", {
 
 local Title = Txt(Header, {
 	Size = UDim2.new(1, -55, 0, 22),
-	Text = "Overview",
+	Text = "\079\118\101\114\118\105\101\119",
 	Font = Enum.Font.GothamBold,
 	TextSize = 18,
 	ZIndex = 30,
@@ -927,21 +927,21 @@ local Title = Txt(Header, {
 Txt(Header, {
 	Position = UDim2.new(0, 0, 0, 21),
 	Size = UDim2.new(1, -55, 0, 14),
-	Text = "LUNAR Hub Premium Interface",
+	Text = "\076\085\078\065\082\032\072\117\098\032\080\114\101\109\105\117\109\032\073\110\116\101\114\102\097\099\101",
 	TextSize = 10,
 	TextColor3 = COLOR.grey,
 	ZIndex = 30,
 })
 
-local Close = New("TextButton", {
-	Name = "Close",
+local Close = New("\084\101\120\116\066\117\116\116\111\110", {
+	Name = "\067\108\111\115\101",
 	AnchorPoint = Vector2.new(1, 0),
 	Position = UDim2.new(1, 0, 0, 4),
 	Size = UDim2.fromOffset(26, 26),
 	BackgroundColor3 = Color3.fromRGB(24, 19, 23),
 	BorderSizePixel = 0,
 	AutoButtonColor = false,
-	Text = "×",
+	Text = "\195\151",
 	Font = Enum.Font.GothamBold,
 	TextSize = 18,
 	TextColor3 = COLOR.grey,
@@ -959,7 +959,7 @@ track(Close.MouseLeave:Connect(function()
 	Tween(CloseStroke, 0.15, { Color = COLOR.border })
 end))
 
-local PageHolder = New("Frame", {
+local PageHolder = New("\070\114\097\109\101", {
 	Position = UDim2.new(0, 15, 0, 57),
 	Size = UDim2.new(1, -30, 1, -69),
 	BackgroundTransparency = 1,
@@ -997,7 +997,7 @@ function Actions.ApplyLayout()
 		LogoTitle.Visible = not compact
 		PanelWord.Visible = not compact
 		Moon.Position = compact and UDim2.new(0.5, -15, 0, 13) or UDim2.new(0, 14, 0, 13)
-		Online.Text = compact and "●" or "●  ONLINE"
+		Online.Text = compact and "\226\151\143" or "\226\151\143\032\032\079\078\076\073\078\069"
 		Online.TextXAlignment = compact and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
 		changed = true
 	end
@@ -1048,7 +1048,7 @@ end)
 --============================================================
 
 local function CreatePage(name)
-	local Page = New("ScrollingFrame", {
+	local Page = New("\083\099\114\111\108\108\105\110\103\070\114\097\109\101", {
 		Name = name,
 		Size = UDim2.fromScale(1, 1),
 		BackgroundTransparency = 1,
@@ -1061,14 +1061,14 @@ local function CreatePage(name)
 
 	Interaction.WatchScroll(Page)
 
-	New("UIPadding", {
+	New("\085\073\080\097\100\100\105\110\103", {
 		PaddingLeft = UDim.new(0, 2),
 		PaddingRight = UDim.new(0, 8),
 		PaddingBottom = UDim.new(0, 8),
 	}, Page)
 
-	local Layout = New("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, Page)
-	track(Layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+	local Layout = New("\085\073\076\105\115\116\076\097\121\111\117\116", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, Page)
+	track(Layout:GetPropertyChangedSignal("\065\098\115\111\108\117\116\101\067\111\110\116\101\110\116\083\105\122\101"):Connect(function()
 		Page.CanvasSize = UDim2.fromOffset(0, Layout.AbsoluteContentSize.Y + 10)
 	end))
 
@@ -1085,7 +1085,7 @@ end
 --============================================================
 
 local function IconWrap(parent)
-	return New("Frame", {
+	return New("\070\114\097\109\101", {
 		Position = UDim2.new(0, 9, 0.5, -9),
 		Size = UDim2.fromOffset(19, 19),
 		BackgroundTransparency = 1,
@@ -1096,7 +1096,7 @@ end
 local function Part(parent, props, radius)
 	props.BorderSizePixel = 0
 	props.ZIndex = props.ZIndex or 41
-	local f = New("Frame", props, parent)
+	local f = New("\070\114\097\109\101", props, parent)
 	if radius then
 		Corner(f, radius)
 	end
@@ -1107,7 +1107,7 @@ local IconBuilders = {}
 
 function IconBuilders.house(parent, color)
 	local Wrap = IconWrap(parent)
-	local RoofClip = New("Frame", {
+	local RoofClip = New("\070\114\097\109\101", {
 		Size = UDim2.fromOffset(19, 9),
 		BackgroundTransparency = 1,
 		ClipsDescendants = true,
@@ -1273,7 +1273,7 @@ end
 --============================================================
 
 local function CreateTab(name, icon)
-	local Button = New("TextButton", {
+	local Button = New("\084\101\120\116\066\117\116\116\111\110", {
 		Size = UDim2.new(1, 0, 0, 32),
 		BackgroundColor3 = Color3.fromRGB(75, 12, 20),
 		BackgroundTransparency = 1,
@@ -1285,7 +1285,7 @@ local function CreateTab(name, icon)
 	}, TabHolder)
 	Corner(Button, 10)
 	-- พื้นแท็บที่เลือก: ไล่จากสีธีมเข้ม -> จางหายไปทางขวา (ไม่เป็นกล่องทึบ)
-	New("UIGradient", {
+	New("\085\073\071\114\097\100\105\101\110\116", {
 		Rotation = 0,
 		Transparency = NumberSequence.new({
 			NumberSequenceKeypoint.new(0, 0),
@@ -1296,7 +1296,7 @@ local function CreateTab(name, icon)
 	local TabStroke = Stroke(Button, COLOR.red, 1, 1)
 	TabStroke.Color = COLOR.red
 
-	local Bar = New("Frame", {
+	local Bar = New("\070\114\097\109\101", {
 		Position = UDim2.new(0, 5, 0.5, -8),
 		Size = UDim2.fromOffset(3, 16),
 		BackgroundColor3 = COLOR.red,
@@ -1311,13 +1311,13 @@ local function CreateTab(name, icon)
 
 	if IconBuilders[iconStr] then
 		Icon, iconParts = IconBuilders[iconStr](Button, COLOR.grey)
-	elseif iconStr:match("^rbxassetid://") or iconStr:match("^%d+$") then
+	elseif iconStr:match("\094\114\098\120\097\115\115\101\116\105\100\058\047\047") or iconStr:match("\094\037\100\043\036") then
 		isImage = true
-		Icon = New("ImageLabel", {
+		Icon = New("\073\109\097\103\101\076\097\098\101\108", {
 			Position = UDim2.new(0, 11, 0.5, -9),
 			Size = UDim2.fromOffset(18, 18),
 			BackgroundTransparency = 1,
-			Image = iconStr:match("^%d+$") and ("rbxassetid://" .. iconStr) or iconStr,
+			Image = iconStr:match("\094\037\100\043\036") and ("\114\098\120\097\115\115\101\116\105\100\058\047\047" .. iconStr) or iconStr,
 			ImageColor3 = COLOR.grey,
 			ZIndex = 40,
 		}, Button)
@@ -1427,7 +1427,7 @@ end
 --============================================================
 
 local function Section(parent, text)
-	local Holder = New("Frame", {
+	local Holder = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 29),
 		BackgroundTransparency = 1,
 		LayoutOrder = ord(parent),
@@ -1441,7 +1441,7 @@ local function Section(parent, text)
 		TextSize = 10,
 	})
 
-	local Line = New("Frame", {
+	local Line = New("\070\114\097\109\101", {
 		Position = UDim2.new(0, 3, 1, -1),
 		Size = UDim2.new(1, -6, 0, 1),
 		BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1458,21 +1458,21 @@ end
 
 -- การ์ดพื้นฐาน (กรอบ + แถบสีด้านซ้าย)
 local function CardBase(parent, height, class)
-	local Holder = New(class or "Frame", {
+	local Holder = New(class or "\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, height),
 		BackgroundColor3 = COLOR.innerBg,
 		BorderSizePixel = 0,
 		LayoutOrder = ord(parent),
 		ZIndex = 50,
 	}, parent)
-	if class == "TextButton" then
+	if class == "\084\101\120\116\066\117\116\116\111\110" then
 		Holder.AutoButtonColor = false
 		Holder.Text = ""
 	end
 	Corner(Holder, 10)
 	Gradient(Holder, ColorSequence.new(Color3.new(1, 1, 1), Color3.fromRGB(200, 200, 212)), 0)
 	local S = Stroke(Holder, COLOR.innerBorder, 1.5, 0)
-	local Accent = New("Frame", {
+	local Accent = New("\070\114\097\109\101", {
 		Visible = false,
 		Position = UDim2.new(0, 8, 0, 6),
 		Size = UDim2.new(0, 3, 1, -12),
@@ -1499,7 +1499,7 @@ local function Safe(fn, ...)
 	end
 	local ok, err = pcall(fn, ...)
 	if not ok then
-		warn("[LUNAR Hub] callback error: " .. tostring(err))
+		warn("\091\076\085\078\065\082\032\072\117\098\093\032\099\097\108\108\098\097\099\107\032\101\114\114\111\114\058\032" .. tostring(err))
 	end
 end
 
@@ -1509,28 +1509,28 @@ end
 
 -- คำอธิบายเริ่มต้นตามชื่อรายการ (ใส่ desc เองได้ที่พารามิเตอร์ท้ายสุด)
 local RowDescs = {
-	["Animation"] = "เปิด/ปิดแอนิเมชันของหน้าต่างและปุ่ม",
-	["Premium Effects"] = "แสงนีออนเรืองและขอบหมุน",
-	["Show Floating Button"] = "แสดงปุ่ม LH ลอยบนหน้าจอ",
-	["Auto Load"] = "โหลดสคริปต์อัตโนมัติเมื่อเข้าเกม",
-	["Shooting Stars"] = "ดาวตกและดาวระยิบระยับเป็นพื้นหลัง",
-	["Rainbow Mode"] = "ขอบและสีธีมไล่สีรุ้งต่อเนื่อง",
-	["Rainbow Speed"] = "ความเร็วในการเปลี่ยนสีรุ้ง",
-	["Multi-Color Neon"] = "ขอบนีออนแสดงหลายสีพร้อมกัน",
-	["Neon Combo"] = "ชุดสีนีออนสำเร็จรูป",
-	["Panel Size"] = "เลือกขนาดหน้าต่างสำเร็จรูป",
-	["Reset Interface"] = "คืนขนาดและตำแหน่งหน้าต่างเป็นค่าเริ่มต้น",
-	["Reset Settings"] = "ล้างการตั้งค่าทั้งหมดกลับเป็นค่าเริ่มต้น",
-	["Destroy GUI"] = "ปิดและลบหน้าต่างนี้ออกจากเกม",
-	["Sample Button"] = "ปุ่มตัวอย่างพร้อมคำอธิบายบรรทัดล่าง",
-	["Danger Button"] = "ใช้กับการกระทำที่ต้องระวัง",
-	["Sample Toggle"] = "สวิตช์เปิด/ปิดแบบมาตรฐาน",
-	["Locked Toggle (ยังไม่ผูก Hook)"] = "ยังใช้งานไม่ได้จนกว่าจะผูก Hook",
-	["Sample Slider"] = "ลากเพื่อปรับค่า 0 - 100",
-	["Decimal Slider"] = "สไลเดอร์ทศนิยม 0.1 - 3",
-	["Sample Select"] = "เลือกได้ 1 ตัวเลือก",
-	["Sample Multi Select"] = "เลือกได้หลายตัวเลือก",
-	["Locked Select"] = "ยังไม่มีตัวเลือกให้เลือก",
+	["\065\110\105\109\097\116\105\111\110"] = "\224\185\128\224\184\155\224\184\180\224\184\148\047\224\184\155\224\184\180\224\184\148\224\185\129\224\184\173\224\184\153\224\184\180\224\185\128\224\184\161\224\184\138\224\184\177\224\184\153\224\184\130\224\184\173\224\184\135\224\184\171\224\184\153\224\185\137\224\184\178\224\184\149\224\185\136\224\184\178\224\184\135\224\185\129\224\184\165\224\184\176\224\184\155\224\184\184\224\185\136\224\184\161",
+	["\080\114\101\109\105\117\109\032\069\102\102\101\099\116\115"] = "\224\185\129\224\184\170\224\184\135\224\184\153\224\184\181\224\184\173\224\184\173\224\184\153\224\185\128\224\184\163\224\184\183\224\184\173\224\184\135\224\185\129\224\184\165\224\184\176\224\184\130\224\184\173\224\184\154\224\184\171\224\184\161\224\184\184\224\184\153",
+	["\083\104\111\119\032\070\108\111\097\116\105\110\103\032\066\117\116\116\111\110"] = "\224\185\129\224\184\170\224\184\148\224\184\135\224\184\155\224\184\184\224\185\136\224\184\161\032\076\072\032\224\184\165\224\184\173\224\184\162\224\184\154\224\184\153\224\184\171\224\184\153\224\185\137\224\184\178\224\184\136\224\184\173",
+	["\065\117\116\111\032\076\111\097\100"] = "\224\185\130\224\184\171\224\184\165\224\184\148\224\184\170\224\184\132\224\184\163\224\184\180\224\184\155\224\184\149\224\185\140\224\184\173\224\184\177\224\184\149\224\185\130\224\184\153\224\184\161\224\184\177\224\184\149\224\184\180\224\185\128\224\184\161\224\184\183\224\185\136\224\184\173\224\185\128\224\184\130\224\185\137\224\184\178\224\185\128\224\184\129\224\184\161",
+	["\083\104\111\111\116\105\110\103\032\083\116\097\114\115"] = "\224\184\148\224\184\178\224\184\167\224\184\149\224\184\129\224\185\129\224\184\165\224\184\176\224\184\148\224\184\178\224\184\167\224\184\163\224\184\176\224\184\162\224\184\180\224\184\154\224\184\163\224\184\176\224\184\162\224\184\177\224\184\154\224\185\128\224\184\155\224\185\135\224\184\153\224\184\158\224\184\183\224\185\137\224\184\153\224\184\171\224\184\165\224\184\177\224\184\135",
+	["\082\097\105\110\098\111\119\032\077\111\100\101"] = "\224\184\130\224\184\173\224\184\154\224\185\129\224\184\165\224\184\176\224\184\170\224\184\181\224\184\152\224\184\181\224\184\161\224\185\132\224\184\165\224\185\136\224\184\170\224\184\181\224\184\163\224\184\184\224\185\137\224\184\135\224\184\149\224\185\136\224\184\173\224\185\128\224\184\153\224\184\183\224\185\136\224\184\173\224\184\135",
+	["\082\097\105\110\098\111\119\032\083\112\101\101\100"] = "\224\184\132\224\184\167\224\184\178\224\184\161\224\185\128\224\184\163\224\185\135\224\184\167\224\185\131\224\184\153\224\184\129\224\184\178\224\184\163\224\185\128\224\184\155\224\184\165\224\184\181\224\185\136\224\184\162\224\184\153\224\184\170\224\184\181\224\184\163\224\184\184\224\185\137\224\184\135",
+	["\077\117\108\116\105\045\067\111\108\111\114\032\078\101\111\110"] = "\224\184\130\224\184\173\224\184\154\224\184\153\224\184\181\224\184\173\224\184\173\224\184\153\224\185\129\224\184\170\224\184\148\224\184\135\224\184\171\224\184\165\224\184\178\224\184\162\224\184\170\224\184\181\224\184\158\224\184\163\224\185\137\224\184\173\224\184\161\224\184\129\224\184\177\224\184\153",
+	["\078\101\111\110\032\067\111\109\098\111"] = "\224\184\138\224\184\184\224\184\148\224\184\170\224\184\181\224\184\153\224\184\181\224\184\173\224\184\173\224\184\153\224\184\170\224\184\179\224\185\128\224\184\163\224\185\135\224\184\136\224\184\163\224\184\185\224\184\155",
+	["\080\097\110\101\108\032\083\105\122\101"] = "\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129\224\184\130\224\184\153\224\184\178\224\184\148\224\184\171\224\184\153\224\185\137\224\184\178\224\184\149\224\185\136\224\184\178\224\184\135\224\184\170\224\184\179\224\185\128\224\184\163\224\185\135\224\184\136\224\184\163\224\184\185\224\184\155",
+	["\082\101\115\101\116\032\073\110\116\101\114\102\097\099\101"] = "\224\184\132\224\184\183\224\184\153\224\184\130\224\184\153\224\184\178\224\184\148\224\185\129\224\184\165\224\184\176\224\184\149\224\184\179\224\185\129\224\184\171\224\184\153\224\185\136\224\184\135\224\184\171\224\184\153\224\185\137\224\184\178\224\184\149\224\185\136\224\184\178\224\184\135\224\185\128\224\184\155\224\185\135\224\184\153\224\184\132\224\185\136\224\184\178\224\185\128\224\184\163\224\184\180\224\185\136\224\184\161\224\184\149\224\185\137\224\184\153",
+	["\082\101\115\101\116\032\083\101\116\116\105\110\103\115"] = "\224\184\165\224\185\137\224\184\178\224\184\135\224\184\129\224\184\178\224\184\163\224\184\149\224\184\177\224\185\137\224\184\135\224\184\132\224\185\136\224\184\178\224\184\151\224\184\177\224\185\137\224\184\135\224\184\171\224\184\161\224\184\148\224\184\129\224\184\165\224\184\177\224\184\154\224\185\128\224\184\155\224\185\135\224\184\153\224\184\132\224\185\136\224\184\178\224\185\128\224\184\163\224\184\180\224\185\136\224\184\161\224\184\149\224\185\137\224\184\153",
+	["\068\101\115\116\114\111\121\032\071\085\073"] = "\224\184\155\224\184\180\224\184\148\224\185\129\224\184\165\224\184\176\224\184\165\224\184\154\224\184\171\224\184\153\224\185\137\224\184\178\224\184\149\224\185\136\224\184\178\224\184\135\224\184\153\224\184\181\224\185\137\224\184\173\224\184\173\224\184\129\224\184\136\224\184\178\224\184\129\224\185\128\224\184\129\224\184\161",
+	["\083\097\109\112\108\101\032\066\117\116\116\111\110"] = "\224\184\155\224\184\184\224\185\136\224\184\161\224\184\149\224\184\177\224\184\167\224\184\173\224\184\162\224\185\136\224\184\178\224\184\135\224\184\158\224\184\163\224\185\137\224\184\173\224\184\161\224\184\132\224\184\179\224\184\173\224\184\152\224\184\180\224\184\154\224\184\178\224\184\162\224\184\154\224\184\163\224\184\163\224\184\151\224\184\177\224\184\148\224\184\165\224\185\136\224\184\178\224\184\135",
+	["\068\097\110\103\101\114\032\066\117\116\116\111\110"] = "\224\185\131\224\184\138\224\185\137\224\184\129\224\184\177\224\184\154\224\184\129\224\184\178\224\184\163\224\184\129\224\184\163\224\184\176\224\184\151\224\184\179\224\184\151\224\184\181\224\185\136\224\184\149\224\185\137\224\184\173\224\184\135\224\184\163\224\184\176\224\184\167\224\184\177\224\184\135",
+	["\083\097\109\112\108\101\032\084\111\103\103\108\101"] = "\224\184\170\224\184\167\224\184\180\224\184\149\224\184\138\224\185\140\224\185\128\224\184\155\224\184\180\224\184\148\047\224\184\155\224\184\180\224\184\148\224\185\129\224\184\154\224\184\154\224\184\161\224\184\178\224\184\149\224\184\163\224\184\144\224\184\178\224\184\153",
+	["\076\111\099\107\101\100\032\084\111\103\103\108\101\032\040\224\184\162\224\184\177\224\184\135\224\185\132\224\184\161\224\185\136\224\184\156\224\184\185\224\184\129\032\072\111\111\107\041"] = "\224\184\162\224\184\177\224\184\135\224\185\131\224\184\138\224\185\137\224\184\135\224\184\178\224\184\153\224\185\132\224\184\161\224\185\136\224\185\132\224\184\148\224\185\137\224\184\136\224\184\153\224\184\129\224\184\167\224\185\136\224\184\178\224\184\136\224\184\176\224\184\156\224\184\185\224\184\129\032\072\111\111\107",
+	["\083\097\109\112\108\101\032\083\108\105\100\101\114"] = "\224\184\165\224\184\178\224\184\129\224\185\128\224\184\158\224\184\183\224\185\136\224\184\173\224\184\155\224\184\163\224\184\177\224\184\154\224\184\132\224\185\136\224\184\178\032\048\032\045\032\049\048\048",
+	["\068\101\099\105\109\097\108\032\083\108\105\100\101\114"] = "\224\184\170\224\185\132\224\184\165\224\185\128\224\184\148\224\184\173\224\184\163\224\185\140\224\184\151\224\184\168\224\184\153\224\184\180\224\184\162\224\184\161\032\048\046\049\032\045\032\051",
+	["\083\097\109\112\108\101\032\083\101\108\101\099\116"] = "\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129\224\185\132\224\184\148\224\185\137\032\049\032\224\184\149\224\184\177\224\184\167\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129",
+	["\083\097\109\112\108\101\032\077\117\108\116\105\032\083\101\108\101\099\116"] = "\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129\224\185\132\224\184\148\224\185\137\224\184\171\224\184\165\224\184\178\224\184\162\224\184\149\224\184\177\224\184\167\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129",
+	["\076\111\099\107\101\100\032\083\101\108\101\099\116"] = "\224\184\162\224\184\177\224\184\135\224\185\132\224\184\161\224\185\136\224\184\161\224\184\181\224\184\149\224\184\177\224\184\167\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129\224\185\131\224\184\171\224\185\137\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129",
 }
 
 local function RowBase(parent, title, desc, icon, reserve, class)
@@ -1567,7 +1567,7 @@ end
 -- BUTTON
 --------------------------------------------------------------
 local function Button(parent, text, callback, danger, desc, icon)
-	local Btn, S, Accent, Title = RowBase(parent, text, desc, icon, 34, "TextButton")
+	local Btn, S, Accent, Title = RowBase(parent, text, desc, icon, 34, "\084\101\120\116\066\117\116\116\111\110")
 	if danger then
 		Title.TextColor3 = COLOR.bad
 	end
@@ -1576,7 +1576,7 @@ local function Button(parent, text, callback, danger, desc, icon)
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1, -14, 0.5, 0),
 		Size = UDim2.fromOffset(14, 20),
-		Text = ">",
+		Text = "\062",
 		Font = Enum.Font.GothamBold,
 		TextSize = 13,
 		TextColor3 = COLOR.grey,
@@ -1619,14 +1619,14 @@ local function Toggle(parent, text, enabled, callback, availableFn, desc, icon)
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1, -56, 0.5, 0),
 		Size = UDim2.fromOffset(64, 14),
-		Text = (availableFn and not availableFn()) and "Not Available" or "",
+		Text = (availableFn and not availableFn()) and "\078\111\116\032\065\118\097\105\108\097\098\108\101" or "",
 		TextSize = 9,
 		TextColor3 = COLOR.bad,
 		TextXAlignment = Enum.TextXAlignment.Right,
 		ZIndex = 60,
 	})
 
-	local Switch = New("TextButton", {
+	local Switch = New("\084\101\120\116\066\117\116\116\111\110", {
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1, -14, 0.5, 0),
 		Size = UDim2.fromOffset(38, 20),
@@ -1639,7 +1639,7 @@ local function Toggle(parent, text, enabled, callback, availableFn, desc, icon)
 	Corner(Switch, 10)
 	local SwitchStroke = Stroke(Switch, COLOR.switchBorder, 1.4, 0)
 
-	local Knob = New("Frame", {
+	local Knob = New("\070\114\097\109\101", {
 		AnchorPoint = Vector2.new(0, 0.5),
 		Position = UDim2.new(0, 3, 0.5, 0),
 		Size = UDim2.fromOffset(14, 14),
@@ -1649,7 +1649,7 @@ local function Toggle(parent, text, enabled, callback, availableFn, desc, icon)
 	}, Switch)
 	Corner(Knob, 7)
 
-	local Hit = New("TextButton", {
+	local Hit = New("\084\101\120\116\066\117\116\116\111\110", {
 		Size = UDim2.fromScale(1, 1),
 		BackgroundTransparency = 1,
 		Text = "",
@@ -1684,8 +1684,8 @@ local function Toggle(parent, text, enabled, callback, availableFn, desc, icon)
 
 	local function click()
 		if availableFn and not availableFn() then
-			Note.Text = "Not Available"
-			Notify("ฟังก์ชันนี้ยังไม่ได้ผูก Hook", false)
+			Note.Text = "\078\111\116\032\065\118\097\105\108\097\098\108\101"
+			Notify("\224\184\159\224\184\177\224\184\135\224\184\129\224\185\140\224\184\138\224\184\177\224\184\153\224\184\153\224\184\181\224\185\137\224\184\162\224\184\177\224\184\135\224\185\132\224\184\161\224\185\136\224\185\132\224\184\148\224\185\137\224\184\156\224\184\185\224\184\129\032\072\111\111\107", false)
 			return
 		end
 		api.Set(not state)
@@ -1707,7 +1707,7 @@ local function Slider(parent, text, min, max, default, decimals, onChange, relea
 	local TRACK_W = 84
 	local Row, RowStroke = RowBase(parent, text, desc, icon, TRACK_W + 70)
 
-	local ValueBox = New("Frame", {
+	local ValueBox = New("\070\114\097\109\101", {
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1, -(14 + TRACK_W + 12), 0.5, 0),
 		Size = UDim2.fromOffset(42, 22),
@@ -1717,7 +1717,7 @@ local function Slider(parent, text, min, max, default, decimals, onChange, relea
 	}, Row)
 	Corner(ValueBox, 7)
 	local ValueStroke = Stroke(ValueBox, COLOR.innerBorder, 1.2, 0.1)
-	local ValueLabel = New("TextBox", {
+	local ValueLabel = New("\084\101\120\116\066\111\120", {
 		Size = UDim2.fromScale(1, 1),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -1730,7 +1730,7 @@ local function Slider(parent, text, min, max, default, decimals, onChange, relea
 		ZIndex = 62,
 	}, ValueBox)
 
-	local Track = New("Frame", {
+	local Track = New("\070\114\097\109\101", {
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1, -14, 0.5, 0),
 		Size = UDim2.fromOffset(TRACK_W, 5),
@@ -1739,14 +1739,14 @@ local function Slider(parent, text, min, max, default, decimals, onChange, relea
 		ZIndex = 60,
 	}, Row)
 	Corner(Track, 3)
-	local Fill = New("Frame", {
+	local Fill = New("\070\114\097\109\101", {
 		Size = UDim2.fromScale(0, 1),
 		BackgroundColor3 = COLOR.red,
 		BorderSizePixel = 0,
 		ZIndex = 61,
 	}, Track)
 	Corner(Fill, 3)
-	local Knob = New("Frame", {
+	local Knob = New("\070\114\097\109\101", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0, 0.5),
 		Size = UDim2.fromOffset(14, 14),
@@ -1757,7 +1757,7 @@ local function Slider(parent, text, min, max, default, decimals, onChange, relea
 	Corner(Knob, 7)
 	local KnobStroke = Stroke(Knob, COLOR.red, 2, 0)
 
-	local Hit = New("TextButton", {
+	local Hit = New("\084\101\120\116\066\117\116\116\111\110", {
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1, -6, 0.5, 0),
 		Size = UDim2.fromOffset(TRACK_W + 16, 34),
@@ -1786,7 +1786,7 @@ local function Slider(parent, text, min, max, default, decimals, onChange, relea
 		Fill.Size = UDim2.fromScale(a, 1)
 		Knob.Position = UDim2.fromScale(a, 0.5)
 		if not ValueLabel:IsFocused() then
-			ValueLabel.Text = string.format("%." .. decimals .. "f", v)
+			ValueLabel.Text = string.format("\037\046" .. decimals .. "\102", v)
 		end
 		if not silent and not releaseOnly then
 			task.spawn(Safe, onChange, v)
@@ -1801,8 +1801,8 @@ local function Slider(parent, text, min, max, default, decimals, onChange, relea
 		ValueLabel.TextColor3 = COLOR.white
 		ValueLabel.Text = tostring(value)
 	end))
-	track(ValueLabel:GetPropertyChangedSignal("Text"):Connect(function()
-		local clean = (ValueLabel.Text:gsub("[^%d%.%-]", ""))
+	track(ValueLabel:GetPropertyChangedSignal("\084\101\120\116"):Connect(function()
+		local clean = (ValueLabel.Text:gsub("\091\094\037\100\037\046\037\045\093", ""))
 		if clean ~= ValueLabel.Text then
 			ValueLabel.Text = clean
 		end
@@ -1883,17 +1883,17 @@ local function Dropdown(parent, text, opts)
 	local selected = multi and {} or nil
 	local PILL_W = 124
 
-	local Wrap = New("Frame", {
+	local Wrap = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
 		LayoutOrder = ord(parent),
 	}, parent)
-	New("UIListLayout", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, Wrap)
+	New("\085\073\076\105\115\116\076\097\121\111\117\116", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, Wrap)
 
-	local Head, HeadStroke = RowBase(Wrap, text, opts.Desc, opts.Icon, PILL_W + 28, "TextButton")
+	local Head, HeadStroke = RowBase(Wrap, text, opts.Desc, opts.Icon, PILL_W + 28, "\084\101\120\116\066\117\116\116\111\110")
 
-	local Pill = New("Frame", {
+	local Pill = New("\070\114\097\109\101", {
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1, -12, 0.5, 0),
 		Size = UDim2.fromOffset(PILL_W, 26),
@@ -1913,7 +1913,7 @@ local function Dropdown(parent, text, opts)
 		ZIndex = 62,
 	})
 
-	local Arrow = New("Frame", {
+	local Arrow = New("\070\114\097\109\101", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(1, -14, 0.5, 0),
 		Size = UDim2.fromOffset(14, 14),
@@ -1922,7 +1922,7 @@ local function Dropdown(parent, text, opts)
 	}, Pill)
 	local ArrowArms = {}
 	for _, side in ipairs({ -1, 1 }) do
-		local arm = New("Frame", {
+		local arm = New("\070\114\097\109\101", {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromOffset(7 + side * 2.6, 8),
 			Size = UDim2.fromOffset(2, 7),
@@ -1935,7 +1935,7 @@ local function Dropdown(parent, text, opts)
 		table.insert(ArrowArms, arm)
 	end
 
-	local List = New("Frame", {
+	local List = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundColor3 = COLOR.innerBg,
@@ -1946,13 +1946,13 @@ local function Dropdown(parent, text, opts)
 	}, Wrap)
 	Corner(List, 12)
 	local ListStroke = Stroke(List, COLOR.innerBorder, 1.2, 0)
-	New("UIPadding", {
+	New("\085\073\080\097\100\100\105\110\103", {
 		PaddingTop = UDim.new(0, 6),
 		PaddingBottom = UDim.new(0, 6),
 		PaddingLeft = UDim.new(0, 6),
 		PaddingRight = UDim.new(0, 6),
 	}, List)
-	New("UIListLayout", { Padding = UDim.new(0, 4), SortOrder = Enum.SortOrder.LayoutOrder }, List)
+	New("\085\073\076\105\115\116\076\097\121\111\117\116", { Padding = UDim.new(0, 4), SortOrder = Enum.SortOrder.LayoutOrder }, List)
 
 	local rows = {}
 
@@ -1962,14 +1962,14 @@ local function Dropdown(parent, text, opts)
 
 	local function optionList()
 		local src = opts.Options
-		if type(src) == "function" then
+		if type(src) == "\102\117\110\099\116\105\111\110" then
 			local ok, r = pcall(src)
 			src = ok and r or {}
 		end
 		local out = {}
-		if type(src) == "table" then
+		if type(src) == "\116\097\098\108\101" then
 			for _, v in ipairs(src) do
-				table.insert(out, typeof(v) == "Instance" and v.Name or tostring(v))
+				table.insert(out, typeof(v) == "\073\110\115\116\097\110\099\101" and v.Name or tostring(v))
 			end
 		end
 		return out
@@ -1996,7 +1996,7 @@ local function Dropdown(parent, text, opts)
 
 	local function summary()
 		if not available() then
-			return "Not Available"
+			return "\078\111\116\032\065\118\097\105\108\097\098\108\101"
 		end
 		if multi then
 			local n, names = 0, {}
@@ -2006,13 +2006,13 @@ local function Dropdown(parent, text, opts)
 			end
 			table.sort(names)
 			if n == 0 then
-				return opts.Placeholder or "None"
+				return opts.Placeholder or "\078\111\110\101"
 			elseif n <= 2 then
-				return table.concat(names, ", ")
+				return table.concat(names, "\044\032")
 			end
-			return n .. " selected"
+			return n .. "\032\115\101\108\101\099\116\101\100"
 		end
-		return selected or opts.Placeholder or "Select..."
+		return selected or opts.Placeholder or "\083\101\108\101\099\116\046\046\046"
 	end
 
 	local function paintRows()
@@ -2057,7 +2057,7 @@ local function Dropdown(parent, text, opts)
 		if #list == 0 then
 			local Empty = Txt(List, {
 				Size = UDim2.new(1, 0, 0, 28),
-				Text = "ไม่มีตัวเลือก",
+				Text = "\224\185\132\224\184\161\224\185\136\224\184\161\224\184\181\224\184\149\224\184\177\224\184\167\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129",
 				TextColor3 = COLOR.grey,
 				TextXAlignment = Enum.TextXAlignment.Center,
 				LayoutOrder = 1,
@@ -2068,7 +2068,7 @@ local function Dropdown(parent, text, opts)
 		end
 
 		for i, name in ipairs(list) do
-			local Btn = New("TextButton", {
+			local Btn = New("\084\101\120\116\066\117\116\116\111\110", {
 				Size = UDim2.new(1, 0, 0, 28),
 				BackgroundColor3 = COLOR.innerBgHover,
 				BackgroundTransparency = 1,
@@ -2080,7 +2080,7 @@ local function Dropdown(parent, text, opts)
 			}, List)
 			Corner(Btn, 8)
 
-			local Box = New("Frame", {
+			local Box = New("\070\114\097\109\101", {
 				AnchorPoint = Vector2.new(0, 0.5),
 				Position = UDim2.new(0, 10, 0.5, 0),
 				Size = UDim2.fromOffset(16, 16),
@@ -2091,7 +2091,7 @@ local function Dropdown(parent, text, opts)
 			Corner(Box, multi and 5 or 8)
 			local BoxStroke = Stroke(Box, COLOR.switchBorder, 1.4, 0)
 
-			local Mark = New("Frame", {
+			local Mark = New("\070\114\097\109\101", {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				Size = UDim2.fromOffset(6, 6),
@@ -2154,7 +2154,7 @@ local function Dropdown(parent, text, opts)
 	function api.Set(value, silent)
 		if multi then
 			selected = {}
-			if type(value) == "table" then
+			if type(value) == "\116\097\098\108\101" then
 				for _, v in ipairs(value) do
 					selected[tostring(v)] = true
 				end
@@ -2182,7 +2182,7 @@ local function Dropdown(parent, text, opts)
 
 	track(Head.Activated:Connect(function()
 		if not available() then
-			Notify("ตัวเลือกนี้ยังไม่ได้ผูก Hook", false)
+			Notify("\224\184\149\224\184\177\224\184\167\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129\224\184\153\224\184\181\224\185\137\224\184\162\224\184\177\224\184\135\224\185\132\224\184\161\224\185\136\224\185\132\224\184\148\224\185\137\224\184\156\224\184\185\224\184\129\032\072\111\111\107", false)
 			return
 		end
 		open = not open
@@ -2208,8 +2208,8 @@ end
 -- INFO ROW (ใช้ในการ์ดข้อมูล)
 --------------------------------------------------------------
 local function StatRow(holder, label)
-	local Row = New("Frame", { Size = UDim2.new(1, 0, 0, 18), BackgroundTransparency = 1 }, holder)
-	local Dot = New("Frame", {
+	local Row = New("\070\114\097\109\101", { Size = UDim2.new(1, 0, 0, 18), BackgroundTransparency = 1 }, holder)
+	local Dot = New("\070\114\097\109\101", {
 		Position = UDim2.new(0, 2, 0.5, -3),
 		Size = UDim2.fromOffset(6, 6),
 		BackgroundColor3 = COLOR.redBright,
@@ -2329,18 +2329,18 @@ end
 
 local function hookAvailable(name)
 	return function()
-		return type(Hooks[name]) == "function"
+		return type(Hooks[name]) == "\102\117\110\099\116\105\111\110"
 	end
 end
 
 local function callHook(name, ...)
 	local fn = Hooks[name]
-	if type(fn) ~= "function" then
+	if type(fn) ~= "\102\117\110\099\116\105\111\110" then
 		return false
 	end
 	local ok, err = pcall(fn, ...)
 	if not ok then
-		warn("[LUNAR Hub] Hook '" .. name .. "' error: " .. tostring(err))
+		warn("\091\076\085\078\065\082\032\072\117\098\093\032\072\111\111\107\032\039" .. name .. "\039\032\101\114\114\111\114\058\032" .. tostring(err))
 	end
 	return ok
 end
@@ -2349,26 +2349,26 @@ local CARD_SHADE = ColorSequence.new(Color3.new(1, 1, 1), Color3.fromRGB(200, 20
 
 --============================================================
 -- GAME SYSTEMS: Farm / Dungeon / Forge
-local GameReplicatedStorage = game:GetService("ReplicatedStorage")
-local GameRemote = GameReplicatedStorage:WaitForChild("Remote", 10)
+local GameReplicatedStorage = game:GetService("\082\101\112\108\105\099\097\116\101\100\083\116\111\114\097\103\101")
+local GameRemote = GameReplicatedStorage:WaitForChild("\082\101\109\111\116\101", 10)
 
 local function getRemote(folder, name)
 	local f = GameRemote and GameRemote:FindFirstChild(folder)
 	return f and f:FindFirstChild(name)
 end
 
-local DX_RemoteTrainOnce       = getRemote("Train", "TrainOnceRE")
-local DX_RemoteIntoAutoTrain   = getRemote("Train", "IntoAutoTrainRE")
-local DX_RemoteExitAutoTrain   = getRemote("Train", "ExitAutoTrainRE")
-local DX_RemoteStageFinished   = getRemote("Stage", "StageFinishedRF")
-local DX_RemoteGetOre          = getRemote("Stage", "GetOreRF")
-local DX_RemoteClaimedAllOre   = getRemote("Stage", "ClaimedAllOreRE")
-local DX_RemoteForge           = getRemote("Forge", "ForgeRF")
-local DX_RemoteDungeonTicket   = getRemote("Dungeon", "TryClaimDailyDunTicRE")
-local DX_RemoteIntoDungeon     = getRemote("Dungeon", "TryIntoDungeonRF")
-local DX_RemoteExitDungeon     = getRemote("Dungeon", "ExitDungeonRE")
-local DX_RemoteStartRound      = getRemote("Dungeon", "StartRoundRE")
-local DX_RemoteCompleteRound   = getRemote("Dungeon", "CompleteRoundRF")
+local DX_RemoteTrainOnce       = getRemote("\084\114\097\105\110", "\084\114\097\105\110\079\110\099\101\082\069")
+local DX_RemoteIntoAutoTrain   = getRemote("\084\114\097\105\110", "\073\110\116\111\065\117\116\111\084\114\097\105\110\082\069")
+local DX_RemoteExitAutoTrain   = getRemote("\084\114\097\105\110", "\069\120\105\116\065\117\116\111\084\114\097\105\110\082\069")
+local DX_RemoteStageFinished   = getRemote("\083\116\097\103\101", "\083\116\097\103\101\070\105\110\105\115\104\101\100\082\070")
+local DX_RemoteGetOre          = getRemote("\083\116\097\103\101", "\071\101\116\079\114\101\082\070")
+local DX_RemoteClaimedAllOre   = getRemote("\083\116\097\103\101", "\067\108\097\105\109\101\100\065\108\108\079\114\101\082\069")
+local DX_RemoteForge           = getRemote("\070\111\114\103\101", "\070\111\114\103\101\082\070")
+local DX_RemoteDungeonTicket   = getRemote("\068\117\110\103\101\111\110", "\084\114\121\067\108\097\105\109\068\097\105\108\121\068\117\110\084\105\099\082\069")
+local DX_RemoteIntoDungeon     = getRemote("\068\117\110\103\101\111\110", "\084\114\121\073\110\116\111\068\117\110\103\101\111\110\082\070")
+local DX_RemoteExitDungeon     = getRemote("\068\117\110\103\101\111\110", "\069\120\105\116\068\117\110\103\101\111\110\082\069")
+local DX_RemoteStartRound      = getRemote("\068\117\110\103\101\111\110", "\083\116\097\114\116\082\111\117\110\100\082\069")
+local DX_RemoteCompleteRound   = getRemote("\068\117\110\103\101\111\110", "\067\111\109\112\108\101\116\101\082\111\117\110\100\082\070")
 
 local DX_BackpackData
 local DX_ProfileData
@@ -2389,16 +2389,16 @@ pcall(function() DX_CommunicationUtils = require(GameReplicatedStorage.Utils.Com
 
 pcall(function()
 	if DX_CommunicationUtils and DX_CommunicationUtils.TryGetBindableEvent then
-		DX_EnemyHitBE = DX_CommunicationUtils.TryGetBindableEvent("Attack", "EnemyHitBE")
+		DX_EnemyHitBE = DX_CommunicationUtils.TryGetBindableEvent("\065\116\116\097\099\107", "\069\110\101\109\121\072\105\116\066\069")
 	end
 end)
 
 local DX_GameState = {
 	AutoTrain = false,
 	AutoBestZone = false,
-	TrainZone = "Auto Best",
+	TrainZone = "\065\117\116\111\032\066\101\115\116",
 	AutoStage = false,
-	Stage = "Auto Max",
+	Stage = "\065\117\116\111\032\077\097\120",
 	StageDelay = 0.35,
 	AutoCollectOre = false,
 
@@ -2407,27 +2407,27 @@ local DX_GameState = {
 	DungeonStart = 1,
 
 	AutoForge = false,
-	ForgeType = "Weapon",
-	OreQuality = "Best Ores First",
+	ForgeType = "\087\101\097\112\111\110",
+	OreQuality = "\066\101\115\116\032\079\114\101\115\032\070\105\114\115\116",
 	MaterialAmount = 4,
 	ForgeAmount = 1,
 }
 
 local DX_TrainZones = {
-	{Id=1, Name="Train_1 (x1.5)", Rebirth=0,  Pad=Vector3.new(-53,3,-41), Dummy=Vector3.new(-57.88,6.94,-41.04)},
-	{Id=2, Name="Train_2 (x2)",   Rebirth=2,  Pad=Vector3.new(-53,3,-20.9), Dummy=Vector3.new(-57.88,6.94,-20.91)},
-	{Id=3, Name="Train_3 (x4)",   Rebirth=5,  Pad=Vector3.new(-53,3,21.4),  Dummy=Vector3.new(-57.88,6.94,21.37)},
-	{Id=4, Name="Train_4 (x6)",   Rebirth=9,  Pad=Vector3.new(-53,3,43.25), Dummy=Vector3.new(-57.88,6.94,43.25)},
-	{Id=5, Name="Train_5 (x8)",   Rebirth=12, Pad=Vector3.new(-80,8.6,21.29), Dummy=Vector3.new(-84.50,8.61,21.29)},
-	{Id=6, Name="Train_6 (x10)",  Rebirth=15, Pad=Vector3.new(-80,9.1,-20.9), Dummy=Vector3.new(-83.92,9.11,-20.90)},
-	{Id=7, Name="Train_7 (x15)",  Rebirth=18, Pad=Vector3.new(-108,12.7,32.24), Dummy=Vector3.new(-114.22,12.73,32.24)},
-	{Id=8, Name="Train_8 (x25)",  Rebirth=21, Pad=Vector3.new(-106,10.6,-31), Dummy=Vector3.new(-110.27,10.63,-30.99)},
+	{Id=1, Name="\084\114\097\105\110\095\049\032\040\120\049\046\053\041", Rebirth=0,  Pad=Vector3.new(-53,3,-41), Dummy=Vector3.new(-57.88,6.94,-41.04)},
+	{Id=2, Name="\084\114\097\105\110\095\050\032\040\120\050\041",   Rebirth=2,  Pad=Vector3.new(-53,3,-20.9), Dummy=Vector3.new(-57.88,6.94,-20.91)},
+	{Id=3, Name="\084\114\097\105\110\095\051\032\040\120\052\041",   Rebirth=5,  Pad=Vector3.new(-53,3,21.4),  Dummy=Vector3.new(-57.88,6.94,21.37)},
+	{Id=4, Name="\084\114\097\105\110\095\052\032\040\120\054\041",   Rebirth=9,  Pad=Vector3.new(-53,3,43.25), Dummy=Vector3.new(-57.88,6.94,43.25)},
+	{Id=5, Name="\084\114\097\105\110\095\053\032\040\120\056\041",   Rebirth=12, Pad=Vector3.new(-80,8.6,21.29), Dummy=Vector3.new(-84.50,8.61,21.29)},
+	{Id=6, Name="\084\114\097\105\110\095\054\032\040\120\049\048\041",  Rebirth=15, Pad=Vector3.new(-80,9.1,-20.9), Dummy=Vector3.new(-83.92,9.11,-20.90)},
+	{Id=7, Name="\084\114\097\105\110\095\055\032\040\120\049\053\041",  Rebirth=18, Pad=Vector3.new(-108,12.7,32.24), Dummy=Vector3.new(-114.22,12.73,32.24)},
+	{Id=8, Name="\084\114\097\105\110\095\056\032\040\120\050\053\041",  Rebirth=21, Pad=Vector3.new(-106,10.6,-31), Dummy=Vector3.new(-110.27,10.63,-30.99)},
 }
 
 local function dxCharacter()
 	local c = LocalPlayer.Character
-	local hrp = c and c:FindFirstChild("HumanoidRootPart")
-	local hum = c and c:FindFirstChildOfClass("Humanoid")
+	local hrp = c and c:FindFirstChild("\072\117\109\097\110\111\105\100\082\111\111\116\080\097\114\116")
+	local hum = c and c:FindFirstChildOfClass("\072\117\109\097\110\111\105\100")
 	return c, hrp, hum
 end
 
@@ -2445,7 +2445,7 @@ local function dxBestTrainZone()
 end
 
 local function dxSelectedTrainZone()
-	if DX_GameState.TrainZone == "Auto Best" then
+	if DX_GameState.TrainZone == "\065\117\116\111\032\066\101\115\116" then
 		return dxBestTrainZone()
 	end
 	for _, z in ipairs(DX_TrainZones) do
@@ -2463,7 +2463,7 @@ local function dxTrain()
 			hrp.CFrame = CFrame.lookAt(zone.Pad + Vector3.new(0,1.5,0), zone.Dummy)
 			hrp.AssemblyLinearVelocity = Vector3.zero
 		end
-		if DX_RemoteIntoAutoTrain and LocalPlayer:GetAttribute("AutoTrainAreaID") ~= zone.Id then
+		if DX_RemoteIntoAutoTrain and LocalPlayer:GetAttribute("\065\117\116\111\084\114\097\105\110\065\114\101\097\073\068") ~= zone.Id then
 			pcall(function() DX_RemoteIntoAutoTrain:FireServer(zone.Id) end)
 		end
 	end
@@ -2475,10 +2475,10 @@ end
 
 local function dxCollectWorldOre()
 	local count = 0
-	local cache = workspace:FindFirstChild("OreCache")
+	local cache = workspace:FindFirstChild("\079\114\101\067\097\099\104\101")
 	if not cache then return 0 end
 	for _, ore in ipairs(cache:GetChildren()) do
-		local prompt = ore:FindFirstChildWhichIsA("ProximityPrompt", true)
+		local prompt = ore:FindFirstChildWhichIsA("\080\114\111\120\105\109\105\116\121\080\114\111\109\112\116", true)
 		if prompt then
 			pcall(function()
 				prompt.MaxActivationDistance = 99999
@@ -2499,27 +2499,27 @@ end
 
 local function dxKillEnemy(enemy)
 	if not enemy then return end
-	local uuid = enemy:GetAttribute("UUID") or enemy.Name
+	local uuid = enemy:GetAttribute("\085\085\073\068") or enemy.Name
 	if not uuid then return end
 	pcall(function()
 		if DX_EnemyHitBE then DX_EnemyHitBE:Fire(uuid, 1e30) end
 		if DX_EnemyCTRL and DX_EnemyCTRL.HurtEnemy then DX_EnemyCTRL.HurtEnemy(uuid, 1e30) end
 		if DX_EnemyCTRL and DX_EnemyCTRL.DeadEnemyData then DX_EnemyCTRL.DeadEnemyData(uuid) end
 		if DX_HPCTRL and DX_HPCTRL.SetCurrentHP then DX_HPCTRL.SetCurrentHP(enemy, 0) end
-		enemy:SetAttribute("Dead", true)
-		local hum = enemy:FindFirstChildOfClass("Humanoid")
+		enemy:SetAttribute("\068\101\097\100", true)
+		local hum = enemy:FindFirstChildOfClass("\072\117\109\097\110\111\105\100")
 		if hum then hum.Health = 0 end
 	end)
 end
 
 local function dxStageId()
-	if DX_GameState.Stage == "Auto Max" then
+	if DX_GameState.Stage == "\065\117\116\111\032\077\097\120" then
 		local passed = 0
 		pcall(function()
 			local pd = DX_ProfileData and DX_ProfileData.GetTotalData()
 			passed = tonumber(pd and pd.Stats and pd.Stats.StagePass) or 0
 		end)
-		return "Stage_" .. tostring(math.clamp(passed + 1, 1, 27))
+		return "\083\116\097\103\101\095" .. tostring(math.clamp(passed + 1, 1, 27))
 	end
 	return tostring(DX_GameState.Stage)
 end
@@ -2530,7 +2530,7 @@ local function dxClearStage()
 		local ok, ores = pcall(function()
 			return DX_RemoteStageFinished:InvokeServer(stage)
 		end)
-		if ok and type(ores) == "table" then
+		if ok and type(ores) == "\116\097\098\108\101" then
 			for uuid in pairs(ores) do
 				if DX_RemoteGetOre then
 					pcall(function() DX_RemoteGetOre:InvokeServer(uuid) end)
@@ -2542,10 +2542,10 @@ local function dxClearStage()
 		end
 	end
 
-	local enemyFolder = workspace:FindFirstChild("EnemyFolder")
+	local enemyFolder = workspace:FindFirstChild("\069\110\101\109\121\070\111\108\100\101\114")
 	if enemyFolder then
 		for _, enemy in ipairs(enemyFolder:GetChildren()) do
-			if enemy:IsA("Model") and not enemy:GetAttribute("Dead") then
+			if enemy:IsA("\077\111\100\101\108") and not enemy:GetAttribute("\068\101\097\100") then
 				dxKillEnemy(enemy)
 			end
 		end
@@ -2557,17 +2557,17 @@ local function dxClearStage()
 end
 
 local function dxDungeonCombat()
-	if not LocalPlayer:GetAttribute("Dungeoning") then return false end
+	if not LocalPlayer:GetAttribute("\068\117\110\103\101\111\110\105\110\103") then return false end
 
-	local enemyFolder = workspace:FindFirstChild("EnemyFolder")
+	local enemyFolder = workspace:FindFirstChild("\069\110\101\109\121\070\111\108\100\101\114")
 	local _, hrp = dxCharacter()
 	local playerCF = hrp and hrp.CFrame or CFrame.new(3482, 23, -4)
 
 	local dmEnv = nil
 	pcall(function()
-		local ps = LocalPlayer:FindFirstChild("PlayerScripts")
-		local manager = ps and ps:FindFirstChild("Manager")
-		local dmScript = manager and manager:FindFirstChild("DungeonManager")
+		local ps = LocalPlayer:FindFirstChild("\080\108\097\121\101\114\083\099\114\105\112\116\115")
+		local manager = ps and ps:FindFirstChild("\077\097\110\097\103\101\114")
+		local dmScript = manager and manager:FindFirstChild("\068\117\110\103\101\111\110\077\097\110\097\103\101\114")
 		if dmScript and getsenv then
 			dmEnv = getsenv(dmScript)
 		end
@@ -2577,7 +2577,7 @@ local function dxDungeonCombat()
 	if dmEnv and debug and debug.getupvalues and dmEnv.CheckFinishedOnce then
 		pcall(function()
 			local upvalues = debug.getupvalues(dmEnv.CheckFinishedOnce)
-			if type(upvalues) == "table" and type(upvalues[1]) == "table" then
+			if type(upvalues) == "\116\097\098\108\101" and type(upvalues[1]) == "\116\097\098\108\101" then
 				dungeonState = upvalues[1]
 			end
 		end)
@@ -2587,8 +2587,8 @@ local function dxDungeonCombat()
 
 	if DX_GameState.DungeonInstantKill and enemyFolder then
 		for _, enemy in ipairs(enemyFolder:GetChildren()) do
-			if enemy:IsA("Model") and not enemy:GetAttribute("Dead") then
-				local uuid = enemy:GetAttribute("UUID") or enemy.Name
+			if enemy:IsA("\077\111\100\101\108") and not enemy:GetAttribute("\068\101\097\100") then
+				local uuid = enemy:GetAttribute("\085\085\073\068") or enemy.Name
 				lastPivot = enemy:GetPivot()
 
 				pcall(function()
@@ -2604,8 +2604,8 @@ local function dxDungeonCombat()
 					if DX_HPCTRL and DX_HPCTRL.SetCurrentHP then
 						DX_HPCTRL.SetCurrentHP(enemy, 0)
 					end
-					enemy:SetAttribute("Dead", true)
-					local hum = enemy:FindFirstChildOfClass("Humanoid")
+					enemy:SetAttribute("\068\101\097\100", true)
+					local hum = enemy:FindFirstChildOfClass("\072\117\109\097\110\111\105\100")
 					if hum then hum.Health = 0 end
 				end)
 			end
@@ -2613,7 +2613,7 @@ local function dxDungeonCombat()
 	end
 
 	if dungeonState then
-		if not dungeonState.DeadCF or typeof(dungeonState.DeadCF) ~= "CFrame" then
+		if not dungeonState.DeadCF or typeof(dungeonState.DeadCF) ~= "\067\070\114\097\109\101" then
 			dungeonState.DeadCF = lastPivot or playerCF
 		end
 	end
@@ -2649,7 +2649,7 @@ local function dxOreEntries()
 	local entries = {}
 
 	for uuid, item in pairs(bp.have) do
-		if item.Type == "Ore" then
+		if item.Type == "\079\114\101" then
 			local power = 0
 			pcall(function()
 				if DX_OreHelper and DX_OreHelper.GetPower then
@@ -2665,7 +2665,7 @@ local function dxOreEntries()
 	end
 
 	table.sort(entries, function(a,b)
-		if DX_GameState.OreQuality == "Best Ores First" then
+		if DX_GameState.OreQuality == "\066\101\115\116\032\079\114\101\115\032\070\105\114\115\116" then
 			return a.power > b.power
 		end
 		return a.power < b.power
@@ -2675,10 +2675,10 @@ local function dxOreEntries()
 end
 
 local function dxForgeOnce()
-	if not DX_RemoteForge then return false, "ForgeRF not found" end
+	if not DX_RemoteForge then return false, "\070\111\114\103\101\082\070\032\110\111\116\032\102\111\117\110\100" end
 
 	local requested = math.floor(tonumber(DX_GameState.MaterialAmount) or 4)
-	local maxAmount = DX_GameState.ForgeType == "Weapon" and 13 or 23
+	local maxAmount = DX_GameState.ForgeType == "\087\101\097\112\111\110" and 13 or 23
 	local target = math.clamp(requested, 4, maxAmount)
 
 	local entries = dxOreEntries()
@@ -2695,7 +2695,7 @@ local function dxForgeOnce()
 	end
 
 	if collected < target then
-		return false, "Not enough Ore (" .. collected .. "/" .. target .. ")"
+		return false, "\078\111\116\032\101\110\111\117\103\104\032\079\114\101\032\040" .. collected .. "\047" .. target .. "\041"
 	end
 
 	local ok, result = pcall(function()
@@ -2706,8 +2706,8 @@ local function dxForgeOnce()
 	end)
 
 	if not ok then return false, tostring(result) end
-	if not result then return false, "Server rejected Forge" end
-	return true, DX_GameState.ForgeType .. " forged"
+	if not result then return false, "\083\101\114\118\101\114\032\114\101\106\101\099\116\101\100\032\070\111\114\103\101" end
+	return true, DX_GameState.ForgeType .. "\032\102\111\114\103\101\100"
 end
 
 task.spawn(function()
@@ -2720,7 +2720,7 @@ task.spawn(function()
 		elseif DX_GameState.AutoCollectOre then
 			dxCollectWorldOre()
 		else
-			if DX_RemoteExitAutoTrain and LocalPlayer:GetAttribute("AutoTrainAreaID") then
+			if DX_RemoteExitAutoTrain and LocalPlayer:GetAttribute("\065\117\116\111\084\114\097\105\110\065\114\101\097\073\068") then
 				pcall(function() DX_RemoteExitAutoTrain:FireServer() end)
 			end
 		end
@@ -2731,7 +2731,7 @@ end)
 task.spawn(function()
 	while not destroyed do
 		if DX_GameState.AutoDungeon then
-			if LocalPlayer:GetAttribute("Dungeoning") then
+			if LocalPlayer:GetAttribute("\068\117\110\103\101\111\110\105\110\103") then
 				dxDungeonCombat()
 				task.wait(0.25)
 			else
@@ -2756,7 +2756,7 @@ task.spawn(function()
 	while not destroyed do
 		if DX_GameState.AutoForge then
 			local amount = DX_GameState.ForgeAmount
-			if amount == "MAX" then
+			if amount == "\077\065\088" then
 				while DX_GameState.AutoForge and not destroyed do
 					local ok = dxForgeOnce()
 					if not ok then break end
@@ -2778,18 +2778,18 @@ end)
 
 local function hookAvailable(name)
 	return function()
-		return type(Hooks[name]) == "function"
+		return type(Hooks[name]) == "\102\117\110\099\116\105\111\110"
 	end
 end
 
 local function callHook(name, ...)
 	local fn = Hooks[name]
-	if type(fn) ~= "function" then
+	if type(fn) ~= "\102\117\110\099\116\105\111\110" then
 		return false
 	end
 	local ok, err = pcall(fn, ...)
 	if not ok then
-		warn("[DXPanel] Hook '" .. name .. "' error: " .. tostring(err))
+		warn("\091\068\088\080\097\110\101\108\093\032\072\111\111\107\032\039" .. name .. "\039\032\101\114\114\111\114\058\032" .. tostring(err))
 	end
 	return ok
 end
@@ -2802,12 +2802,12 @@ local CARD_SHADE = ColorSequence.new(Color3.new(1, 1, 1), Color3.fromRGB(200, 20
 
 -- OVERVIEW -----------------------------------------------------
 do
-	local Page = CreatePage("Overview")
-	CreateTab("Overview", DX_TAB_ICONS["Overview"])
+	local Page = CreatePage("\079\118\101\114\118\105\101\119")
+	CreateTab("\079\118\101\114\118\105\101\119", DX_TAB_ICONS["\079\118\101\114\118\105\101\119"])
 
-	Section(Page, "Overview")
+	Section(Page, "\079\118\101\114\118\105\101\119")
 
-	local Card = New("Frame", {
+	local Card = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundColor3 = COLOR.innerBg,
@@ -2821,22 +2821,22 @@ do
 	local CardStrokeGrad = Gradient(CardStroke, NeonSequence, 0)
 	Spin(CardStrokeGrad, 9)
 
-	New("UIPadding", {
+	New("\085\073\080\097\100\100\105\110\103", {
 		PaddingLeft = UDim.new(0, 14),
 		PaddingRight = UDim.new(0, 14),
 		PaddingTop = UDim.new(0, 14),
 		PaddingBottom = UDim.new(0, 14),
 	}, Card)
-	New("UIListLayout", { Padding = UDim.new(0, 12), SortOrder = Enum.SortOrder.LayoutOrder }, Card)
+	New("\085\073\076\105\115\116\076\097\121\111\117\116", { Padding = UDim.new(0, 12), SortOrder = Enum.SortOrder.LayoutOrder }, Card)
 
 	-- โปรไฟล์ ------------------------------------------------
-	local HeaderRow = New("Frame", {
+	local HeaderRow = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 64),
 		BackgroundTransparency = 1,
 		LayoutOrder = 1,
 	}, Card)
 
-	local Avatar = New("ImageLabel", {
+	local Avatar = New("\073\109\097\103\101\076\097\098\101\108", {
 		Size = UDim2.fromOffset(64, 64),
 		BackgroundColor3 = COLOR.black,
 		BorderSizePixel = 0,
@@ -2859,7 +2859,7 @@ do
 	Txt(HeaderRow, {
 		Position = UDim2.new(0, 78, 0, 25),
 		Size = UDim2.new(1, -160, 0, 16),
-		Text = "@" .. LocalPlayer.Name,
+		Text = "\064" .. LocalPlayer.Name,
 		TextColor3 = COLOR.grey,
 		TextTruncate = Enum.TextTruncate.AtEnd,
 		ZIndex = 55,
@@ -2867,13 +2867,13 @@ do
 	Txt(HeaderRow, {
 		Position = UDim2.new(0, 78, 0, 45),
 		Size = UDim2.new(1, -160, 0, 14),
-		Text = "Account Age: " .. LocalPlayer.AccountAge .. " days",
+		Text = "\065\099\099\111\117\110\116\032\065\103\101\058\032" .. LocalPlayer.AccountAge .. "\032\100\097\121\115",
 		TextSize = 10,
 		TextColor3 = COLOR.grey,
 		ZIndex = 55,
 	})
 
-	local Badge = New("Frame", {
+	local Badge = New("\070\114\097\109\101", {
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1, 0, 0.5, 0),
 		Size = UDim2.fromOffset(78, 22),
@@ -2883,19 +2883,19 @@ do
 	}, HeaderRow)
 	Corner(Badge, 11)
 	Stroke(Badge, Color3.fromRGB(60, 160, 80), 1, 0.2)
-	local BadgeInner = New("Frame", {
+	local BadgeInner = New("\070\114\097\109\101", {
 		Size = UDim2.fromScale(1, 1),
 		BackgroundTransparency = 1,
 		ZIndex = 58,
 	}, Badge)
-	New("UIListLayout", {
+	New("\085\073\076\105\115\116\076\097\121\111\117\116", {
 		FillDirection = Enum.FillDirection.Horizontal,
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		VerticalAlignment = Enum.VerticalAlignment.Center,
 		Padding = UDim.new(0, 6),
 		SortOrder = Enum.SortOrder.LayoutOrder,
 	}, BadgeInner)
-	local BadgeDot = New("Frame", {
+	local BadgeDot = New("\070\114\097\109\101", {
 		Size = UDim2.fromOffset(6, 6),
 		BackgroundColor3 = COLOR.good,
 		BorderSizePixel = 0,
@@ -2906,7 +2906,7 @@ do
 	Txt(BadgeInner, {
 		AutomaticSize = Enum.AutomaticSize.X,
 		Size = UDim2.new(0, 0, 1, 0),
-		Text = "ONLINE",
+		Text = "\079\078\076\073\078\069",
 		Font = Enum.Font.GothamBold,
 		TextSize = 9,
 		TextColor3 = COLOR.good,
@@ -2929,19 +2929,19 @@ do
 	end)
 
 	-- ไทล์สถิติ 3 ช่อง -------------------------------------------
-	local Tiles = New("Frame", {
+	local Tiles = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 56),
 		BackgroundTransparency = 1,
 		LayoutOrder = 2,
 	}, Card)
-	New("UIListLayout", {
+	New("\085\073\076\105\115\116\076\097\121\111\117\116", {
 		FillDirection = Enum.FillDirection.Horizontal,
 		Padding = UDim.new(0, 8),
 		SortOrder = Enum.SortOrder.LayoutOrder,
 	}, Tiles)
 
 	local function Tile(label, order)
-		local T = New("Frame", {
+		local T = New("\070\114\097\109\101", {
 			Size = UDim2.new(1 / 3, -6, 1, 0),
 			BackgroundColor3 = COLOR.innerBg,
 			BorderSizePixel = 0,
@@ -2951,7 +2951,7 @@ do
 		Corner(T, 10)
 		Gradient(T, CARD_SHADE, 90)
 		local S = Stroke(T, COLOR.innerBorder, 1.2, 0.1)
-		local Bar = New("Frame", {
+		local Bar = New("\070\114\097\109\101", {
 			Visible = false,
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.new(0.5, 0, 0, 0),
@@ -2964,7 +2964,7 @@ do
 		local V = Txt(T, {
 			Position = UDim2.new(0, 0, 0, 9),
 			Size = UDim2.new(1, 0, 0, 24),
-			Text = "-",
+			Text = "\045",
 			Font = Enum.Font.GothamBold,
 			TextSize = 17,
 			TextXAlignment = Enum.TextXAlignment.Center,
@@ -2989,12 +2989,12 @@ do
 		return V
 	end
 
-	local PlayersValue = Tile("Players", 1)
-	local PingValue = Tile("Ping", 2)
-	local FpsValue = Tile("FPS", 3)
+	local PlayersValue = Tile("\080\108\097\121\101\114\115", 1)
+	local PingValue = Tile("\080\105\110\103", 2)
+	local FpsValue = Tile("\070\080\083", 3)
 
 	-- ข้อมูลเกม ---------------------------------------------------
-	local Divider = New("Frame", {
+	local Divider = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 1),
 		BackgroundColor3 = COLOR.border,
 		BackgroundTransparency = 0.4,
@@ -3002,28 +3002,28 @@ do
 		LayoutOrder = 3,
 	}, Card)
 
-	local StatsHolder = New("Frame", {
+	local StatsHolder = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
 		LayoutOrder = 4,
 	}, Card)
-	New("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, StatsHolder)
+	New("\085\073\076\105\115\116\076\097\121\111\117\116", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, StatsHolder)
 
-	local GameValue = StatRow(StatsHolder, "Game")
-	local PlaceValue = StatRow(StatsHolder, "Place ID")
-	local ServerValue = StatRow(StatsHolder, "Server")
+	local GameValue = StatRow(StatsHolder, "\071\097\109\101")
+	local PlaceValue = StatRow(StatsHolder, "\080\108\097\099\101\032\073\068")
+	local ServerValue = StatRow(StatsHolder, "\083\101\114\118\101\114")
 
 	GameValue.Text = Context.GameName or game.Name
 	PlaceValue.Text = tostring(game.PlaceId)
-	ServerValue.Text = (game.JobId ~= "" and string.sub(game.JobId, 1, 8) or "Studio")
+	ServerValue.Text = (game.JobId ~= "" and string.sub(game.JobId, 1, 8) or "\083\116\117\100\105\111")
 
 	if not Context.GameName then
 		task.spawn(function()
 			local ok, info = pcall(function()
 				return MarketplaceService:GetProductInfo(game.PlaceId)
 			end)
-			if ok and type(info) == "table" and info.Name and GameValue.Parent then
+			if ok and type(info) == "\116\097\098\108\101" and info.Name and GameValue.Parent then
 				GameValue.Text = info.Name
 			end
 		end)
@@ -3039,7 +3039,7 @@ do
 	end)
 
 	local function updatePlayers()
-		PlayersValue.Text = #Players:GetPlayers() .. "/" .. Players.MaxPlayers
+		PlayersValue.Text = #Players:GetPlayers() .. "\047" .. Players.MaxPlayers
 	end
 	updatePlayers()
 
@@ -3057,90 +3057,90 @@ do
 				frames, acc = 0, 0
 			end
 			local ok, ping = pcall(function()
-				return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+				return Stats.Network.ServerStatsItem["\068\097\116\097\032\080\105\110\103"]:GetValue()
 			end)
-			PingValue.Text = (ok and ping) and (math.floor(ping) .. "ms") or "N/A"
+			PingValue.Text = (ok and ping) and (math.floor(ping) .. "\109\115") or "\078\047\065"
 			updatePlayers()
 		end
 	end)
 end
 
 do
-	local Page = CreatePage("Farm")
-	CreateTab("Farm", DX_TAB_ICONS["Farm"])
+	local Page = CreatePage("\070\097\114\109")
+	CreateTab("\070\097\114\109", DX_TAB_ICONS["\070\097\114\109"])
 
-	Section(Page, "Training")
-	Toggle(Page, "Auto Train", false, function(v)
+	Section(Page, "\084\114\097\105\110\105\110\103")
+	Toggle(Page, "\065\117\116\111\032\084\114\097\105\110", false, function(v)
 		DX_GameState.AutoTrain = v
 	end)
 
-	Toggle(Page, "Auto Best Zone", false, function(v)
+	Toggle(Page, "\065\117\116\111\032\066\101\115\116\032\090\111\110\101", false, function(v)
 		DX_GameState.AutoBestZone = v
-		if v then DX_GameState.TrainZone = "Auto Best" end
+		if v then DX_GameState.TrainZone = "\065\117\116\111\032\066\101\115\116" end
 	end)
 
-	local trainOptions = {"Auto Best"}
+	local trainOptions = {"\065\117\116\111\032\066\101\115\116"}
 	for _, z in ipairs(DX_TrainZones) do
 		table.insert(trainOptions, z.Name)
 	end
 
-	Dropdown(Page, "Training Zone", {
+	Dropdown(Page, "\084\114\097\105\110\105\110\103\032\090\111\110\101", {
 		Options = trainOptions,
-		Default = "Auto Best",
+		Default = "\065\117\116\111\032\066\101\115\116",
 		OnChange = function(v)
 			DX_GameState.TrainZone = v
-			if v == "Auto Best" then
+			if v == "\065\117\116\111\032\066\101\115\116" then
 				DX_GameState.AutoBestZone = true
 			end
 		end,
 	})
 
-	Section(Page, "Stage & Ore")
-	Toggle(Page, "Auto Clear Stage", false, function(v)
+	Section(Page, "\083\116\097\103\101\032\038\032\079\114\101")
+	Toggle(Page, "\065\117\116\111\032\067\108\101\097\114\032\083\116\097\103\101", false, function(v)
 		DX_GameState.AutoStage = v
 	end)
 
-	local stageOptions = {"Auto Max"}
+	local stageOptions = {"\065\117\116\111\032\077\097\120"}
 	for i = 1, 27 do
-		table.insert(stageOptions, "Stage_" .. i)
+		table.insert(stageOptions, "\083\116\097\103\101\095" .. i)
 	end
 
-	Dropdown(Page, "Stage", {
+	Dropdown(Page, "\083\116\097\103\101", {
 		Options = stageOptions,
-		Default = "Auto Max",
+		Default = "\065\117\116\111\032\077\097\120",
 		OnChange = function(v)
 			DX_GameState.Stage = v
 		end,
 	})
 
-	Slider(Page, "Stage Delay", 0.15, 2, 0.35, 2, function(v)
+	Slider(Page, "\083\116\097\103\101\032\068\101\108\097\121", 0.15, 2, 0.35, 2, function(v)
 		DX_GameState.StageDelay = v
 	end, true)
 
-	Toggle(Page, "Auto Collect Ore", false, function(v)
+	Toggle(Page, "\065\117\116\111\032\067\111\108\108\101\099\116\032\079\114\101", false, function(v)
 		DX_GameState.AutoCollectOre = v
 	end)
 end
 
 do
-	local Page = CreatePage("Dungeon")
-	CreateTab("Dungeon", DX_TAB_ICONS["Dungeon"])
+	local Page = CreatePage("\068\117\110\103\101\111\110")
+	CreateTab("\068\117\110\103\101\111\110", DX_TAB_ICONS["\068\117\110\103\101\111\110"])
 
-	Section(Page, "Dungeon")
-	Toggle(Page, "Auto Dungeon", false, function(v)
+	Section(Page, "\068\117\110\103\101\111\110")
+	Toggle(Page, "\065\117\116\111\032\068\117\110\103\101\111\110", false, function(v)
 		DX_GameState.AutoDungeon = v
 	end)
 
-	Toggle(Page, "Instant Kill", false, function(v)
+	Toggle(Page, "\073\110\115\116\097\110\116\032\075\105\108\108", false, function(v)
 		DX_GameState.DungeonInstantKill = v
 	end)
 
 	local rounds = {}
 	for i = 1, 30 do table.insert(rounds, tostring(i)) end
 
-	Dropdown(Page, "Start Round", {
+	Dropdown(Page, "\083\116\097\114\116\032\082\111\117\110\100", {
 		Options = rounds,
-		Default = "1",
+		Default = "\049",
 		OnChange = function(v)
 			DX_GameState.DungeonStart = tonumber(v) or 1
 		end,
@@ -3148,89 +3148,89 @@ do
 end
 
 do
-	local Page = CreatePage("Forge")
-	CreateTab("Forge", DX_TAB_ICONS["Forge"])
+	local Page = CreatePage("\070\111\114\103\101")
+	CreateTab("\070\111\114\103\101", DX_TAB_ICONS["\070\111\114\103\101"])
 
-	Section(Page, "Forge")
-	Toggle(Page, "Auto Forge", false, function(v)
+	Section(Page, "\070\111\114\103\101")
+	Toggle(Page, "\065\117\116\111\032\070\111\114\103\101", false, function(v)
 		DX_GameState.AutoForge = v
 	end)
 
-	Dropdown(Page, "Forge Type", {
-		Options = {"Weapon", "Armor"},
-		Default = "Weapon",
+	Dropdown(Page, "\070\111\114\103\101\032\084\121\112\101", {
+		Options = {"\087\101\097\112\111\110", "\065\114\109\111\114"},
+		Default = "\087\101\097\112\111\110",
 		OnChange = function(v)
 			DX_GameState.ForgeType = v
 		end,
 	})
 
-	Dropdown(Page, "Material Quality", {
-		Options = {"Best Ores First", "Lowest Ores First"},
-		Default = "Best Ores First",
+	Dropdown(Page, "\077\097\116\101\114\105\097\108\032\081\117\097\108\105\116\121", {
+		Options = {"\066\101\115\116\032\079\114\101\115\032\070\105\114\115\116", "\076\111\119\101\115\116\032\079\114\101\115\032\070\105\114\115\116"},
+		Default = "\066\101\115\116\032\079\114\101\115\032\070\105\114\115\116",
 		OnChange = function(v)
 			DX_GameState.OreQuality = v
 		end,
 	})
 
-	Slider(Page, "Material Amount", 4, 23, 4, 0, function(v)
-		local max = DX_GameState.ForgeType == "Weapon" and 13 or 23
+	Slider(Page, "\077\097\116\101\114\105\097\108\032\065\109\111\117\110\116", 4, 23, 4, 0, function(v)
+		local max = DX_GameState.ForgeType == "\087\101\097\112\111\110" and 13 or 23
 		DX_GameState.MaterialAmount = math.clamp(math.floor(v + 0.5), 4, max)
 	end, true)
 
-	Dropdown(Page, "Forge Amount", {
-		Options = {"1", "5", "10", "20", "50", "100", "MAX"},
-		Default = "1",
+	Dropdown(Page, "\070\111\114\103\101\032\065\109\111\117\110\116", {
+		Options = {"\049", "\053", "\049\048", "\050\048", "\053\048", "\049\048\048", "\077\065\088"},
+		Default = "\049",
 		OnChange = function(v)
-			DX_GameState.ForgeAmount = (v == "MAX") and "MAX" or tonumber(v)
+			DX_GameState.ForgeAmount = (v == "\077\065\088") and "\077\065\088" or tonumber(v)
 		end,
 	})
 
-	Button(Page, "Forge Selected Now", function()
+	Button(Page, "\070\111\114\103\101\032\083\101\108\101\099\116\101\100\032\078\111\119", function()
 		local ok, msg = dxForgeOnce()
-		Notify(ok and msg or ("Forge failed: " .. tostring(msg)), ok)
+		Notify(ok and msg or ("\070\111\114\103\101\032\102\097\105\108\101\100\058\032" .. tostring(msg)), ok)
 	end)
 end
 
 do
-	local Page = CreatePage("Settings")
-	CreateTab("Settings", DX_TAB_ICONS["Settings"])
+	local Page = CreatePage("\083\101\116\116\105\110\103\115")
+	CreateTab("\083\101\116\116\105\110\103\115", DX_TAB_ICONS["\083\101\116\116\105\110\103\115"])
 	local ctl = {}
 	local _
 
-	Section(Page, "General")
-	_, ctl.anim = Toggle(Page, "Animation", Settings.Animate, function(on)
+	Section(Page, "\071\101\110\101\114\097\108")
+	_, ctl.anim = Toggle(Page, "\065\110\105\109\097\116\105\111\110", Settings.Animate, function(on)
 		Settings.Animate = on
 		saveSettings()
 	end)
-	_, ctl.pulse = Toggle(Page, "Premium Effects", Settings.Pulse, function(on)
+	_, ctl.pulse = Toggle(Page, "\080\114\101\109\105\117\109\032\069\102\102\101\099\116\115", Settings.Pulse, function(on)
 		Actions.SetPulse(on)
 		Settings.Pulse = on
 		saveSettings()
 	end)
-	_, ctl.float = Toggle(Page, "Show Floating Button", Settings.ShowFloating, function(on)
+	_, ctl.float = Toggle(Page, "\083\104\111\119\032\070\108\111\097\116\105\110\103\032\066\117\116\116\111\110", Settings.ShowFloating, function(on)
 		Settings.ShowFloating = on
 		Actions.RefreshFloating()
 		saveSettings()
 	end)
-	_, ctl.stars = Toggle(Page, "Shooting Stars", Settings.Stars, function(on)
+	_, ctl.stars = Toggle(Page, "\083\104\111\111\116\105\110\103\032\083\116\097\114\115", Settings.Stars, function(on)
 		Actions.SetStars(on)
 		saveSettings()
 	end)
-	_, ctl.autoload = Toggle(Page, "Auto Load", Settings.AutoLoad, function(on)
+	_, ctl.autoload = Toggle(Page, "\065\117\116\111\032\076\111\097\100", Settings.AutoLoad, function(on)
 		Settings.AutoLoad = on
 		saveSettings()
-		callHook("AutoLoad", on)
+		callHook("\065\117\116\111\076\111\097\100", on)
 	end)
 
-	Section(Page, "Panel")
+	Section(Page, "\080\097\110\101\108")
 	local sizeMap = {
 		Compact = { SIZE.minW, SIZE.minH },
 		Default = { SIZE.defW, SIZE.defH },
 		Large = { SIZE.maxW, SIZE.maxH },
 	}
-	local _, sizeDrop = Dropdown(Page, "Panel Size", {
-		Options = { "Compact", "Default", "Large" },
-		Default = "Default",
+	local _, sizeDrop = Dropdown(Page, "\080\097\110\101\108\032\083\105\122\101", {
+		Options = { "\067\111\109\112\097\099\116", "\068\101\102\097\117\108\116", "\076\097\114\103\101" },
+		Default = "\068\101\102\097\117\108\116",
 		OnChange = function(v)
 			local s = sizeMap[v]
 			if s then
@@ -3238,14 +3238,14 @@ do
 			end
 		end,
 	})
-	Button(Page, "Reset Interface", function()
+	Button(Page, "\082\101\115\101\116\032\073\110\116\101\114\102\097\099\101", function()
 		FitPanel(SIZE.defW, SIZE.defH, true)
-		sizeDrop.Set("Default", true)
-		Actions.ActivateTab("Overview")
+		sizeDrop.Set("\068\101\102\097\117\108\116", true)
+		Actions.ActivateTab("\079\118\101\114\118\105\101\119")
 	end)
 
-	Section(Page, "Theme Color")
-	_, ctl.rainbow = Toggle(Page, "Rainbow Mode", Settings.Rainbow, function(on)
+	Section(Page, "\084\104\101\109\101\032\067\111\108\111\114")
+	_, ctl.rainbow = Toggle(Page, "\082\097\105\110\098\111\119\032\077\111\100\101", Settings.Rainbow, function(on)
 		Actions.SetRainbow(on)
 	end)
 	Actions.OnRainbow = function(on)
@@ -3253,7 +3253,7 @@ do
 			ctl.rainbow.Set(on, true)
 		end
 	end
-	ctl.rspeed = Slider(Page, "Rainbow Speed", 0.2, 3, Settings.RainbowSpeed or 1, 1, function(v)
+	ctl.rspeed = Slider(Page, "\082\097\105\110\098\111\119\032\083\112\101\101\100", 0.2, 3, Settings.RainbowSpeed or 1, 1, function(v)
 		Settings.RainbowSpeed = v
 		saveSettings()
 	end, true)
@@ -3263,7 +3263,7 @@ do
 	local pickerRef = {}
 	local palette = {}
 
-	_, ctl.multi = Toggle(Page, "Multi-Color Neon", Settings.Multi, function(on)
+	_, ctl.multi = Toggle(Page, "\077\117\108\116\105\045\067\111\108\111\114\032\078\101\111\110", Settings.Multi, function(on)
 		Actions.SetMulti(on)
 	end)
 	Actions.OnMulti = function(on)
@@ -3273,19 +3273,19 @@ do
 	end
 
 	local Combos = {
-		{ "Lunar Trio", { "9B5CFF", "3DA5FF", "FF5CC8" } },
-		{ "Aurora", { "3DDCC8", "5CFF9B", "9B5CFF" } },
-		{ "Sunset", { "FF8A3D", "FF4F8B", "9B5CFF" } },
-		{ "Cyber", { "00E5FF", "FF2BD6", "FFE600" } },
-		{ "Candy", { "FF8FD8", "8FC8FF", "B7FF9B" } },
-		{ "Galaxy", { "5C3DFF", "E75CFF", "3DDCFF", "FFFFFF" } },
+		{ "\076\117\110\097\114\032\084\114\105\111", { "\057\066\053\067\070\070", "\051\068\065\053\070\070", "\070\070\053\067\067\056" } },
+		{ "\065\117\114\111\114\097", { "\051\068\068\067\067\056", "\053\067\070\070\057\066", "\057\066\053\067\070\070" } },
+		{ "\083\117\110\115\101\116", { "\070\070\056\065\051\068", "\070\070\052\070\056\066", "\057\066\053\067\070\070" } },
+		{ "\067\121\098\101\114", { "\048\048\069\053\070\070", "\070\070\050\066\068\054", "\070\070\069\054\048\048" } },
+		{ "\067\097\110\100\121", { "\070\070\056\070\068\056", "\056\070\067\056\070\070", "\066\055\070\070\057\066" } },
+		{ "\071\097\108\097\120\121", { "\053\067\051\068\070\070", "\069\055\053\067\070\070", "\051\068\068\067\070\070", "\070\070\070\070\070\070" } },
 	}
 	local comboNames = {}
 	for _, c in ipairs(Combos) do
 		table.insert(comboNames, c[1])
 	end
 
-	local Palette = New("Frame", {
+	local Palette = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 98),
 		BackgroundColor3 = COLOR.innerBg,
 		BorderSizePixel = 0,
@@ -3298,7 +3298,7 @@ do
 	Txt(Palette, {
 		Position = UDim2.fromOffset(16, 10),
 		Size = UDim2.new(1, -32, 0, 12),
-		Text = "NEON PALETTE",
+		Text = "\078\069\079\078\032\080\065\076\069\084\084\069",
 		Font = Enum.Font.GothamBold,
 		TextSize = 9,
 		TextColor3 = COLOR.grey,
@@ -3312,13 +3312,13 @@ do
 		TextTruncate = Enum.TextTruncate.AtEnd,
 		ZIndex = 60,
 	})
-	local SlotRow = New("Frame", {
+	local SlotRow = New("\070\114\097\109\101", {
 		Position = UDim2.fromOffset(14, 48),
 		Size = UDim2.new(1, -28, 0, 36),
 		BackgroundTransparency = 1,
 		ZIndex = 55,
 	}, Palette)
-	New("UIListLayout", {
+	New("\085\073\076\105\115\116\076\097\121\111\117\116", {
 		FillDirection = Enum.FillDirection.Horizontal,
 		Padding = UDim.new(0, 8),
 		VerticalAlignment = Enum.VerticalAlignment.Center,
@@ -3327,8 +3327,8 @@ do
 	local slotObjs = {}
 
 	local function setStatus()
-		PalStatus.Text = pickTarget and ("กำลังปรับ: สีนีออนที่ " .. pickTarget .. "  (แตะซ้ำเพื่อกลับไปสีหลัก)")
-			or "กำลังปรับ: สีหลักของธีม  (แตะวงกลมเพื่อเลือกสีนีออน)"
+		PalStatus.Text = pickTarget and ("\224\184\129\224\184\179\224\184\165\224\184\177\224\184\135\224\184\155\224\184\163\224\184\177\224\184\154\058\032\224\184\170\224\184\181\224\184\153\224\184\181\224\184\173\224\184\173\224\184\153\224\184\151\224\184\181\224\185\136\032" .. pickTarget .. "\032\032\040\224\185\129\224\184\149\224\184\176\224\184\139\224\185\137\224\184\179\224\185\128\224\184\158\224\184\183\224\185\136\224\184\173\224\184\129\224\184\165\224\184\177\224\184\154\224\185\132\224\184\155\224\184\170\224\184\181\224\184\171\224\184\165\224\184\177\224\184\129\041")
+			or "\224\184\129\224\184\179\224\184\165\224\184\177\224\184\135\224\184\155\224\184\163\224\184\177\224\184\154\058\032\224\184\170\224\184\181\224\184\171\224\184\165\224\184\177\224\184\129\224\184\130\224\184\173\224\184\135\224\184\152\224\184\181\224\184\161\032\032\040\224\185\129\224\184\149\224\184\176\224\184\167\224\184\135\224\184\129\224\184\165\224\184\161\224\185\128\224\184\158\224\184\183\224\185\136\224\184\173\224\185\128\224\184\165\224\184\183\224\184\173\224\184\129\224\184\170\224\184\181\224\184\153\224\184\181\224\184\173\224\184\173\224\184\153\041"
 	end
 
 	local function selectTarget(t)
@@ -3349,7 +3349,7 @@ do
 		local list = Settings.NeonColors
 		for i, hex in ipairs(list) do
 			local sel = pickTarget == i
-			local Sw = New("TextButton", {
+			local Sw = New("\084\101\120\116\066\117\116\116\111\110", {
 				Size = UDim2.fromOffset(32, 32),
 				BackgroundColor3 = HexToColor3(hex) or COLOR.red,
 				AutoButtonColor = false,
@@ -3365,7 +3365,7 @@ do
 			table.insert(slotObjs, Sw)
 		end
 		local function mini(text, order, fn)
-			local B = New("TextButton", {
+			local B = New("\084\101\120\116\066\117\116\116\111\110", {
 				Size = UDim2.fromOffset(32, 32),
 				BackgroundColor3 = COLOR.switchOff,
 				AutoButtonColor = false,
@@ -3382,7 +3382,7 @@ do
 			table.insert(slotObjs, B)
 		end
 		if #list < 5 then
-			mini("+", 20, function()
+			mini("\043", 20, function()
 				local h, s, v = Color3.toHSV(HexToColor3(list[#list]) or COLOR.red)
 				table.insert(Settings.NeonColors, Color3ToHex(Color3.fromHSV((h + 0.17) % 1, s, v)))
 				if not Settings.Multi then
@@ -3395,7 +3395,7 @@ do
 			end)
 		end
 		if #list > 2 then
-			mini("-", 21, function()
+			mini("\045", 21, function()
 				table.remove(Settings.NeonColors, pickTarget or #Settings.NeonColors)
 				pickTarget = nil
 				setStatus()
@@ -3419,7 +3419,7 @@ do
 		PalStatus.TextColor3 = COLOR.redSoft
 	end)
 
-	local _, comboDrop = Dropdown(Page, "Neon Combo", {
+	local _, comboDrop = Dropdown(Page, "\078\101\111\110\032\067\111\109\098\111", {
 		Options = comboNames,
 		OnChange = function(v)
 			for _, c in ipairs(Combos) do
@@ -3442,16 +3442,16 @@ do
 	Palette.LayoutOrder = ord(Page)
 
 	local Presets = {
-		{ "Lunar Purple", "9B5CFF" },
-		{ "Nebula", "6C7BFF" },
-		{ "Galaxy Pink", "E75CFF" },
-		{ "Aurora", "3DDCC8" },
-		{ "Moonlight", "8FB8FF" },
-		{ "Rose Moon", "FF6FA8" },
-		{ "Solar Gold", "FFC857" },
+		{ "\076\117\110\097\114\032\080\117\114\112\108\101", "\057\066\053\067\070\070" },
+		{ "\078\101\098\117\108\097", "\054\067\055\066\070\070" },
+		{ "\071\097\108\097\120\121\032\080\105\110\107", "\069\055\053\067\070\070" },
+		{ "\065\117\114\111\114\097", "\051\068\068\067\067\056" },
+		{ "\077\111\111\110\108\105\103\104\116", "\056\070\066\056\070\070" },
+		{ "\082\111\115\101\032\077\111\111\110", "\070\070\054\070\065\056" },
+		{ "\083\111\108\097\114\032\071\111\108\100", "\070\070\067\056\053\055" },
 	}
 
-	local Picker = New("Frame", {
+	local Picker = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 226),
 		BackgroundColor3 = COLOR.innerBg,
 		BorderSizePixel = 0,
@@ -3472,7 +3472,7 @@ do
 	end
 
 	-- ตัวอย่างสี + ช่องกรอก HEX ------------------------------------
-	local Preview = New("Frame", {
+	local Preview = New("\070\114\097\109\101", {
 		Position = UDim2.fromOffset(14, 14),
 		Size = UDim2.fromOffset(42, 42),
 		BackgroundColor3 = currentColor(),
@@ -3482,7 +3482,7 @@ do
 	Corner(Preview, 21)
 	local PreviewStroke = Stroke(Preview, Color3.new(1, 1, 1), 2, 0.55)
 
-	local Field = New("Frame", {
+	local Field = New("\070\114\097\109\101", {
 		Position = UDim2.new(0, 66, 0, 14),
 		Size = UDim2.new(1, -66 - 92, 0, 42),
 		BackgroundColor3 = COLOR.black,
@@ -3496,18 +3496,18 @@ do
 	Txt(Field, {
 		Position = UDim2.new(0, 12, 0, 0),
 		Size = UDim2.fromOffset(14, 42),
-		Text = "#",
+		Text = "\035",
 		Font = Enum.Font.GothamBold,
 		TextSize = 15,
 		TextColor3 = COLOR.grey,
 		ZIndex = 65,
 	})
-	local Input = New("TextBox", {
+	local Input = New("\084\101\120\116\066\111\120", {
 		Position = UDim2.new(0, 28, 0, 0),
 		Size = UDim2.new(1, -38, 1, 0),
 		BackgroundTransparency = 1,
 		Text = Color3ToHex(currentColor()),
-		PlaceholderText = "FF2D4B",
+		PlaceholderText = "\070\070\050\068\052\066",
 		Font = Enum.Font.GothamBold,
 		TextSize = 14,
 		TextColor3 = COLOR.white,
@@ -3517,14 +3517,14 @@ do
 		ZIndex = 65,
 	}, Field)
 
-	local Apply = New("TextButton", {
+	local Apply = New("\084\101\120\116\066\117\116\116\111\110", {
 		AnchorPoint = Vector2.new(1, 0),
 		Position = UDim2.new(1, -14, 0, 14),
 		Size = UDim2.fromOffset(70, 42),
 		BackgroundColor3 = COLOR.red,
 		BorderSizePixel = 0,
 		AutoButtonColor = false,
-		Text = "APPLY",
+		Text = "\065\080\080\076\089",
 		Font = Enum.Font.GothamBold,
 		TextSize = 11,
 		TextColor3 = Color3.new(1, 1, 1),
@@ -3538,19 +3538,19 @@ do
 	Txt(Picker, {
 		Position = UDim2.fromOffset(16, 66),
 		Size = UDim2.new(1, -32, 0, 12),
-		Text = "PRESETS",
+		Text = "\080\082\069\083\069\084\083",
 		Font = Enum.Font.GothamBold,
 		TextSize = 9,
 		TextColor3 = COLOR.grey,
 		ZIndex = 60,
 	})
-	local PresetRow = New("Frame", {
+	local PresetRow = New("\070\114\097\109\101", {
 		Position = UDim2.fromOffset(14, 82),
 		Size = UDim2.new(1, -28, 0, 32),
 		BackgroundTransparency = 1,
 		ZIndex = 60,
 	}, Picker)
-	New("UIListLayout", {
+	New("\085\073\076\105\115\116\076\097\121\111\117\116", {
 		FillDirection = Enum.FillDirection.Horizontal,
 		Padding = UDim.new(0, 8),
 		VerticalAlignment = Enum.VerticalAlignment.Center,
@@ -3568,7 +3568,7 @@ do
 			TextColor3 = COLOR.grey,
 			ZIndex = 60,
 		})
-		local Track = New("Frame", {
+		local Track = New("\070\114\097\109\101", {
 			Position = UDim2.new(0, 14, 0, y),
 			Size = UDim2.new(1, -28, 0, 12),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -3578,7 +3578,7 @@ do
 		Corner(Track, 6)
 		Stroke(Track, COLOR.innerBorder, 1, 0.3)
 		local G = Gradient(Track, ColorSequence.new(Color3.new(1, 1, 1)), 0)
-		local Knob = New("Frame", {
+		local Knob = New("\070\114\097\109\101", {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0, 0.5),
 			Size = UDim2.fromOffset(20, 20),
@@ -3589,7 +3589,7 @@ do
 		Corner(Knob, 10)
 		Stroke(Knob, Color3.fromRGB(20, 20, 24), 2.5, 0.1)
 
-		local Hit = New("TextButton", {
+		local Hit = New("\084\101\120\116\066\117\116\116\111\110", {
 			Position = UDim2.new(0, 14, 0, y - 12),
 			Size = UDim2.new(1, -28, 0, 36),
 			BackgroundTransparency = 1,
@@ -3669,7 +3669,7 @@ do
 		end
 	end
 
-	bars.h = MakeBar("Hue", 138, function(v, released)
+	bars.h = MakeBar("\072\117\101", 138, function(v, released)
 		if released then
 			applyCurrent()
 		else
@@ -3677,7 +3677,7 @@ do
 			refreshVisual()
 		end
 	end)
-	bars.s = MakeBar("Saturation", 172, function(v, released)
+	bars.s = MakeBar("\083\097\116\117\114\097\116\105\111\110", 172, function(v, released)
 		if released then
 			applyCurrent()
 		else
@@ -3685,7 +3685,7 @@ do
 			refreshVisual()
 		end
 	end)
-	bars.v = MakeBar("Brightness", 206, function(v, released)
+	bars.v = MakeBar("\066\114\105\103\104\116\110\101\115\115", 206, function(v, released)
 		if released then
 			applyCurrent()
 		else
@@ -3711,7 +3711,7 @@ do
 
 	for i, p in ipairs(Presets) do
 		local col = HexToColor3(p[2])
-		local Swatch = New("TextButton", {
+		local Swatch = New("\084\101\120\116\066\117\116\116\111\110", {
 			Size = UDim2.fromOffset(30, 30),
 			BackgroundColor3 = col,
 			AutoButtonColor = false,
@@ -3739,8 +3739,8 @@ do
 		Tween(FieldStroke, 0.15, { Color = COLOR.redBright, Thickness = 2 })
 		Tween(Field, 0.15, { BackgroundColor3 = Color3.fromRGB(18, 18, 24) })
 	end))
-	track(Input:GetPropertyChangedSignal("Text"):Connect(function()
-		local clean = string.upper(Input.Text:gsub("[^%x]", "")):sub(1, 6)
+	track(Input:GetPropertyChangedSignal("\084\101\120\116"):Connect(function()
+		local clean = string.upper(Input.Text:gsub("\091\094\037\120\093", "")):sub(1, 6)
 		if clean ~= Input.Text then
 			Input.Text = clean
 			return
@@ -3756,7 +3756,7 @@ do
 			picker.Sync(c)
 			applyCurrent()
 		else
-			Notify("โค้ดสีไม่ถูกต้อง (ต้องมี 6 หลัก)", false)
+			Notify("\224\185\130\224\184\132\224\185\137\224\184\148\224\184\170\224\184\181\224\185\132\224\184\161\224\185\136\224\184\150\224\184\185\224\184\129\224\184\149\224\185\137\224\184\173\224\184\135\032\040\224\184\149\224\185\137\224\184\173\224\184\135\224\184\161\224\184\181\032\054\032\224\184\171\224\184\165\224\184\177\224\184\129\041", false)
 			Tween(FieldStroke, 0.1, { Color = COLOR.bad })
 			task.delay(0.4, function()
 				if FieldStroke.Parent then
@@ -3791,8 +3791,8 @@ do
 	pickerRef.Sync = picker.Sync
 	picker.Sync(HexToColor3(Settings.ThemeColor) or COLOR.red)
 
-	Section(Page, "Actions")
-	Button(Page, "Reset Settings", function()
+	Section(Page, "\065\099\116\105\111\110\115")
+	Button(Page, "\082\101\115\101\116\032\083\101\116\116\105\110\103\115", function()
 		Settings = copyTable(DEFAULT_SETTINGS)
 		ctl.anim.Set(Settings.Animate, true)
 		ctl.pulse.Set(Settings.Pulse, true)
@@ -3809,23 +3809,23 @@ do
 		Actions.SetPulse(Settings.Pulse)
 		Actions.SetThemeColor(HexToColor3(Settings.ThemeColor), true)
 		picker.Sync(HexToColor3(Settings.ThemeColor))
-		sizeDrop.Set("Default", true)
+		sizeDrop.Set("\068\101\102\097\117\108\116", true)
 		FitPanel(SIZE.defW, SIZE.defH, true)
 		Actions.RefreshFloating()
 		saveSettings()
-		Notify("รีเซ็ตการตั้งค่าแล้ว", true)
+		Notify("\224\184\163\224\184\181\224\185\128\224\184\139\224\185\135\224\184\149\224\184\129\224\184\178\224\184\163\224\184\149\224\184\177\224\185\137\224\184\135\224\184\132\224\185\136\224\184\178\224\185\129\224\184\165\224\185\137\224\184\167", true)
 	end)
-	Button(Page, "Destroy GUI", cleanup, true)
+	Button(Page, "\068\101\115\116\114\111\121\032\071\085\073", cleanup, true)
 end
 
 
 -- CREDITS ------------------------------------------------------
 do
-	local Page = CreatePage("Credits")
-	CreateTab("Credits", "info")
+	local Page = CreatePage("\067\114\101\100\105\116\115")
+	CreateTab("\067\114\101\100\105\116\115", "\105\110\102\111")
 
-	Section(Page, "Credits")
-	local Card = New("Frame", {
+	Section(Page, "\067\114\101\100\105\116\115")
+	local Card = New("\070\114\097\109\101", {
 		Size = UDim2.new(1, 0, 0, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundColor3 = COLOR.innerBg,
@@ -3838,23 +3838,23 @@ do
 	local CardStroke = Stroke(Card, Color3.new(1, 1, 1), 1.6, 0.15)
 	local CardStrokeGrad = Gradient(CardStroke, NeonSequence, 0)
 	Spin(CardStrokeGrad, 9)
-	New("UIPadding", {
+	New("\085\073\080\097\100\100\105\110\103", {
 		PaddingLeft = UDim.new(0, 16),
 		PaddingRight = UDim.new(0, 16),
 		PaddingTop = UDim.new(0, 16),
 		PaddingBottom = UDim.new(0, 16),
 	}, Card)
-	New("UIListLayout", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, Card)
+	New("\085\073\076\105\115\116\076\097\121\111\117\116", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, Card)
 
 	local Logo = Txt(Card, {
 		Size = UDim2.new(1, 0, 0, 28),
-		Text = "LUNAR Hub",
+		Text = "\076\085\078\065\082\032\072\117\098",
 		Font = Enum.Font.GothamBlack,
 		TextSize = 22,
 		LayoutOrder = 1,
 		ZIndex = 55,
 	})
-	local Line = New("Frame", {
+	local Line = New("\070\114\097\109\101", {
 		Visible = false,
 		Size = UDim2.fromOffset(42, 2),
 		BackgroundColor3 = COLOR.red,
@@ -3865,21 +3865,21 @@ do
 	Corner(Line, 2)
 	Txt(Card, {
 		Size = UDim2.new(1, 0, 0, 16),
-		Text = "Universal Control Panel",
+		Text = "\085\110\105\118\101\114\115\097\108\032\067\111\110\116\114\111\108\032\080\097\110\101\108",
 		TextColor3 = COLOR.grey,
 		LayoutOrder = 3,
 		ZIndex = 55,
 	})
 	Txt(Card, {
 		Size = UDim2.new(1, 0, 0, 18),
-		Text = "UI / System  :  LUNAR Team",
+		Text = "\085\073\032\047\032\083\121\115\116\101\109\032\032\058\032\032\076\085\078\065\082\032\084\101\097\109",
 		Font = Enum.Font.GothamMedium,
 		LayoutOrder = 4,
 		ZIndex = 55,
 	})
 	Txt(Card, {
 		Size = UDim2.new(1, 0, 0, 16),
-		Text = "Neon interface for LUNAR Hub",
+		Text = "\078\101\111\110\032\105\110\116\101\114\102\097\099\101\032\102\111\114\032\076\085\078\065\082\032\072\117\098",
 		TextSize = 10,
 		TextColor3 = COLOR.grey,
 		LayoutOrder = 5,
@@ -3896,7 +3896,7 @@ do
 end
 
 Actions.ApplyLayout()
-Actions.ActivateTab("Overview")
+Actions.ActivateTab("\079\118\101\114\118\105\101\119")
 
 --============================================================
 -- DRAG SYSTEM (Mouse + Touch)
@@ -3970,8 +3970,8 @@ end
 local TOGGLE = 50
 local ToggleCenter = Vector2.new(Viewport().X - 52, Viewport().Y * 0.72)
 
-local ToggleRoot = New("Frame", {
-	Name = "FloatingToggle",
+local ToggleRoot = New("\070\114\097\109\101", {
+	Name = "\070\108\111\097\116\105\110\103\084\111\103\103\108\101",
 	AnchorPoint = Vector2.new(0.5, 0.5),
 	Position = UDim2.fromOffset(ToggleCenter.X, ToggleCenter.Y),
 	Size = UDim2.fromOffset(TOGGLE, TOGGLE),
@@ -3989,8 +3989,8 @@ for _, l in ipairs(ToggleGlow) do
 	Spin(l.Grad, 4)
 end
 
-local ToggleButton = New("TextButton", {
-	Name = "Body",
+local ToggleButton = New("\084\101\120\116\066\117\116\116\111\110", {
+	Name = "\066\111\100\121",
 	Size = UDim2.fromScale(1, 1),
 	BackgroundColor3 = Color3.fromRGB(10, 10, 14),
 	BorderSizePixel = 0,
@@ -4008,7 +4008,7 @@ local ToggleStroke = Stroke(ToggleButton, Color3.new(1, 1, 1), 2, 0)
 local ToggleStrokeGrad = Gradient(ToggleStroke, NeonSequence, 0)
 Spin(ToggleStrokeGrad, 4)
 
-local ToggleLabel = New("TextLabel", {
+local ToggleLabel = New("\084\101\120\116\076\097\098\101\108", {
 	AnchorPoint = Vector2.new(0.5, 0.5),
 	Position = UDim2.new(0.5, 0, 0.5, -2),
 	Size = UDim2.fromScale(1, 0.7),
@@ -4020,7 +4020,7 @@ local ToggleLabel = New("TextLabel", {
 	TextColor3 = COLOR.white,
 	ZIndex = 12,
 }, ToggleButton)
-local ToggleLabelStroke = New("UIStroke", {
+local ToggleLabelStroke = New("\085\073\083\116\114\111\107\101", {
 	Color = COLOR.neon,
 	Thickness = 1.4,
 	Transparency = 0.45,
@@ -4028,7 +4028,7 @@ local ToggleLabelStroke = New("UIStroke", {
 }, ToggleLabel)
 
 -- พระจันทร์บนปุ่มลอย
-local FMoon = New("Frame", {
+local FMoon = New("\070\114\097\109\101", {
 	AnchorPoint = Vector2.new(0.5, 0.5),
 	Position = UDim2.new(0.5, 0, 0.5, -2),
 	Size = UDim2.fromOffset(26, 26),
@@ -4040,7 +4040,7 @@ Corner(FMoon, 13)
 Gradient(FMoon, ColorSequence.new(Color3.new(1, 1, 1), Color3.fromRGB(190, 184, 230)), 45)
 local FMoonStroke = Stroke(FMoon, COLOR.neon, 3, 0.55)
 for _, c in ipairs({ { 15, 5, 6 }, { 5, 13, 8 }, { 16, 16, 4 } }) do
-	local crater = New("Frame", {
+	local crater = New("\070\114\097\109\101", {
 		Position = UDim2.fromOffset(c[1], c[2]),
 		Size = UDim2.fromOffset(c[3], c[3]),
 		BackgroundColor3 = Color3.fromRGB(196, 190, 228),
@@ -4053,7 +4053,7 @@ OnTheme(function()
 	FMoonStroke.Color = COLOR.neon
 end)
 
-local ToggleBar = New("Frame", {
+local ToggleBar = New("\070\114\097\109\101", {
 	Visible = false,
 	AnchorPoint = Vector2.new(0.5, 1),
 	Position = UDim2.new(0.5, 0, 1, -8),
@@ -4065,7 +4065,7 @@ local ToggleBar = New("Frame", {
 Corner(ToggleBar, 2)
 local ToggleBarGrad = Gradient(ToggleBar, ColorSequence.new(COLOR.red), 0)
 
-local ToggleDot = New("Frame", {
+local ToggleDot = New("\070\114\097\109\101", {
 	AnchorPoint = Vector2.new(1, 0),
 	Position = UDim2.new(1, -7, 0, 7),
 	Size = UDim2.fromOffset(6, 6),
@@ -4213,8 +4213,8 @@ end))
 -- RESIZE HANDLE
 --============================================================
 
-local Resize = New("TextButton", {
-	Name = "ResizeHandle",
+local Resize = New("\084\101\120\116\066\117\116\116\111\110", {
+	Name = "\082\101\115\105\122\101\072\097\110\100\108\101",
 	AnchorPoint = Vector2.new(1, 1),
 	Position = UDim2.new(1, -3, 1, -3),
 	Size = UDim2.fromOffset(26, 26),
@@ -4228,7 +4228,7 @@ local Resize = New("TextButton", {
 -- กริปจุด 3 จุด (สามเหลี่ยม) มุมขวาล่าง
 local GripDots = {}
 for _, p in ipairs({ { 18, 18 }, { 18, 11 }, { 11, 18 }, { 18, 4 }, { 4, 18 }, { 11, 11 } }) do
-	local d = New("Frame", {
+	local d = New("\070\114\097\109\101", {
 		Position = UDim2.fromOffset(p[1], p[2]),
 		Size = UDim2.fromOffset(3, 3),
 		BackgroundColor3 = COLOR.innerBorder,
@@ -4256,7 +4256,7 @@ track(Resize.MouseLeave:Connect(function()
 end))
 
 -- ป้ายบอกขนาดตอนลาก
-local SizeTip = New("TextLabel", {
+local SizeTip = New("\084\101\120\116\076\097\098\101\108", {
 	AnchorPoint = Vector2.new(0.5, 1),
 	Position = UDim2.new(0.5, 0, 1, -14),
 	Size = UDim2.fromOffset(120, 24),
@@ -4279,7 +4279,7 @@ local tipToken = 0
 local function ShowSizeTip()
 	tipToken += 1
 	local token = tipToken
-	SizeTip.Text = string.format("%d × %d%s", PanelSize.X, PanelSize.Y, PanelSize.X < 480 and "  ·  Compact" or "")
+	SizeTip.Text = string.format("\037\100\032\195\151\032\037\100\037\115", PanelSize.X, PanelSize.Y, PanelSize.X < 480 and "\032\032\194\183\032\032\067\111\109\112\097\099\116" or "")
 	SizeTip.Size = UDim2.fromOffset(PanelSize.X < 480 and 150 or 100, 24)
 	SizeTip.Visible = true
 	task.delay(0.9, function()
@@ -4317,7 +4317,7 @@ function Actions.Refit()
 	SetPanelSize(PanelSize.X, PanelSize.Y)
 	SetToggleCenter(ToggleCenter)
 end
-track(Gui:GetPropertyChangedSignal("AbsoluteSize"):Connect(Actions.Refit))
+track(Gui:GetPropertyChangedSignal("\065\098\115\111\108\117\116\101\083\105\122\101"):Connect(Actions.Refit))
 
 function Actions.SetPulse(on)
 	Settings.Pulse = on
@@ -4364,10 +4364,10 @@ end))
 
 do
 	local ok = pcall(function()
-		Gui.Parent = game:GetService("CoreGui")
+		Gui.Parent = game:GetService("\067\111\114\101\071\117\105")
 	end)
 	if not ok or not Gui.Parent then
-		Gui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+		Gui.Parent = LocalPlayer:WaitForChild("\080\108\097\121\101\114\071\117\105")
 	end
 end
 
@@ -4379,6 +4379,6 @@ end
 Actions.ApplyLayout()
 Actions.Refit()
 Actions.RefreshFloating()
-Actions.ActivateTab("Overview")
+Actions.ActivateTab("\079\118\101\114\118\105\101\119")
 
-print("[LUNAR Hub] Loaded successfully")
+print("\091\076\085\078\065\082\032\072\117\098\093\032\076\111\097\100\101\100\032\115\117\099\099\101\115\115\102\117\108\108\121")
